@@ -10,7 +10,11 @@ const app = express();
 
 mongoose
   .connect(
-    `mongodb+srv://root:3XeQRUnoZBKgJ8R1@cluster0-tu3ur.mongodb.net/test?retryWrites=true&w=majority`, { useFindAndModify: false }
+    // `mongodb+srv://root:3XeQRUnoZBKgJ8R1@cluster0-tu3ur.mongodb.net/test?retryWrites=true&w=majority`, { useFindAndModify: false }
+    `mongodb+srv://root:wWQIp9gu9iCGxHpB@officeapp-4faup.mongodb.net/ OfficeApp?retryWrites=true&w=majority`, { useFindAndModify: false }
+
+
+
   )
   .then(() => {
     console.log("Connected to database!");
