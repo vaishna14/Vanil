@@ -1,0 +1,77 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-paginator {
+  margin-top: 1rem;
+  color: white;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.ui.card.example-card {
+  width: 100%;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+.example-card.mat-card.ng-star-inserted {
+  background-color: #f8f3c1;
+  margin-bottom: 16px;
+}
+.paginator {
+  background-color: black;
+  color: white;
+  margin: auto 10px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+}
+
+.profile-card {
+  margin: 10px auto;
+  width: 70%;
+  padding: 0% 3% 3% 3%;
+}
+
+.posts-list {
+  margin: 10px auto;
+  width: 70%;
+  padding: 0% 3% 3% 3%;
+}
+.mat-select-value {
+  color: white !important;
+}
+
+.ng-tns-c11-1.ng-star-inserted {
+  color: white !important;
+}
+
+.edit-post {
+  text-decoration: none;
+  color: purple !important;
+}
+.ui.card .meta,
+.ui.cards > .card .meta {
+  font-size: large;
+  color: black;
+  padding: 0% 2%;
+}
+
+.description.display-flex.justify-flex-end {
+  padding-right: 3%;
+}

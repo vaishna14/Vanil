@@ -1,0 +1,49 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  display: flex;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.logo-img {
+  height: inherit;
+  margin: auto 30px;
+}
+
+.logo-name {
+  font-size: xx-large;
+  text-decoration-line: underline;
+}
+
+.header {
+  margin-bottom: 0.2%;
+  background-color: black;
+}
+a:hover {
+  color: darkmagenta;
+}
+button:hover {
+  color: darkmagenta;
+}
+
+.logout {
+  color: white;
+}
+.userName {
+  color: black;
+}
+.paginator {
+  background-color: black;
+  color: white;
+}

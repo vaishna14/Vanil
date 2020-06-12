@@ -1,0 +1,180 @@
+<div class="ui card">
+  <div class="content">
+    <a class="header">About Me</a>
+    <!-- <div class="meta">
+      <span class="date">Joined in 2013</span>
+    </div> -->
+    <div class="description" contenteditable="true">
+      Please write some details about you here....
+    </div>
+  </div>
+  <div class="image">
+    <button class="ui button edit-avatar" (click)="openModal()">
+      <i class="edit icon"></i>
+    </button>
+    <img
+      *ngIf="myProfile !== undefined"
+      [src]="'../../../assets/' + myProfile"
+    />
+    <img *ngIf="myProfile === undefined" src="../../../assets/myprofile.png" />
+  </div>
+  <div class="extra content">
+    <table
+      [ngClass]="
+        click
+          ? 'animate__animated animate__flash table table-hover'
+          : 'table table-hover'
+      "
+    >
+      <tbody>
+        <tr>
+          <td>First Name<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('firstName', $event)" contenteditable="true">
+            {{ firstName }}
+          </td>
+        </tr>
+        <tr>
+          <td>Last Name<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('lastName', $event)" contenteditable="true">
+            {{ lastName }}
+          </td>
+        </tr>
+        <tr>
+          <td>UserName</td>
+          <td (keyup)="change('userName', $event)" contenteditable="false">
+            {{ userName }}
+          </td>
+        </tr>
+        <tr>
+          <td>Contact<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('contact', $event)" contenteditable="true">
+            {{ contact }}
+          </td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>
+            {{ email }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <a>
+      <i class="user icon"></i>
+      22 Friends
+    </a> -->
+  </div>
+  <button mat-button (click)="UpdateDetails()" color="accent">
+    Update
+  </button>
+</div>
+
+<div
+  [ngClass]="
+    showModal
+      ? 'ui active modal scale animate__animated animate__backInUp'
+      : 'ui modal animate__animated animate__backOutDown'
+  "
+>
+  <div class="header">
+    Profile Picture
+    <i class="close icon" (click)="hide()"></i>
+  </div>
+
+  <div class="image content">
+    <div class="ui medium image col-sm-0 col-lg-0"></div>
+    <div class="description">
+      <div class="ui header">Would you like to change your avatar?</div>
+      <div class="ui four column grid">
+        <div class="column" *ngFor="let avatar of avatarlist">
+          <div class="ui fluid card">
+            <div class="ui small image">
+              <img [src]="'../../../assets/' + avatar" />
+            </div>
+            <div
+              class="ui bottom attached button avatar"
+              (click)="ChangeAvatar(avatar)"
+            >
+              <p>Update Avatar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div>
+  <div class="actions">
+    <div class="ui black deny button" (click)="hide()">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon" (click)="hide()"></i>
+    </div>
+  </div> -->
+  </div>
+
+  <!-- <mat-card class="example-card">
+  <mat-card-header>
+    <div class="profile-header">
+      <mat-card-title>About Me</mat-card-title>
+      <mat-card-subtitle class="display-flex justify-flex-end">
+        <p>Fly like a bird</p>
+      </mat-card-subtitle>
+    </div>
+  </mat-card-header>
+  <div class="disply-flex">
+    <img
+      mat-card-image
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu"
+    />
+  </div>
+  <mat-card-content>
+    <table
+      [ngClass]="
+        click
+          ? 'animate__animated animate__flash table table-hover'
+          : 'table table-hover'
+      "
+    >
+      <tbody>
+        <tr>
+          <td>First Name<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('firstName', $event)" contenteditable="true">
+            {{ firstName }}
+          </td>
+        </tr>
+        <tr>
+          <td>Last Name<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('lastName', $event)" contenteditable="true">
+            {{ lastName }}
+          </td>
+        </tr>
+        <tr>
+          <td>UserName</td>
+          <td (keyup)="change('userName', $event)" contenteditable="false">
+            {{ userName }}
+          </td>
+        </tr>
+        <tr>
+          <td>Contact<i class="fas fa-pencil-alt"></i></td>
+          <td (keyup)="change('contact', $event)" contenteditable="true">
+            {{ contact }}
+          </td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>
+            {{ email }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="UpdateDetails()" color="accent">
+      Update
+    </button>
+  </mat-card-actions>
+</mat-card> -->
+</div>

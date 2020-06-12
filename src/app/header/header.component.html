@@ -1,0 +1,37 @@
+<mat-toolbar class="header">
+  <img class="logo-img" src="../../assets/logoOrg.PNG" alt="logo" />
+  <span>
+    <a class="logo-name" mat-button routerLink="/">Pic Hub</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/posts/home" routerLinkActive="mat-accent"
+        >Home</a
+      >
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/posts/create" routerLinkActive="mat-accent"
+        >New Post</a
+      >
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
+        >Login</a
+      >
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+        >Signup</a
+      >
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button class="logout" mat-button (click)="onLogout()">Logout</button>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button class="userName" mat-raised-button="accent">
+        {{ userName }}
+      </button>
+    </li>
+  </ul>
+</mat-toolbar>

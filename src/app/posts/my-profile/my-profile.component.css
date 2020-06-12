@@ -1,0 +1,23 @@
+.ui.card,
+.ui.cards > .card {
+  width: 100%;
+}
+.description {
+  padding: 2% 1%;
+}
+
+.ui.active.modal {
+  height: auto;
+  width: auto;
+}
+.ui.modal > .content > .image {
+  display: none;
+}
+
+.ui.bottom.attached.button.avatar {
+  font-size: xx-small;
+}
+.ui.button.edit-avatar {
+  position: absolute;
+  background-color: transparent;
+}
