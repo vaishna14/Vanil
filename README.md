@@ -1,4 +1,4 @@
-# my-web-app
-MEAN stack for social app
+# Office app 
+MEAN stack for Tracking app
 
 checking git init 
