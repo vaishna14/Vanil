@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-// import { Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 
 import { AuthService } from "./auth/auth.service";
 // import { ErrorService } from "./error/error.service";
@@ -13,6 +13,9 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 export class AppComponent implements OnInit {
   // hasError = false;
   // private errorSub: Subscription;
+  userIsAuthenticated = false;
+  userName: string;
+  private authListenerSubs: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -21,6 +24,14 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userName = this.authService.getUserName();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userName = this.authService.getUserName();
+      });
     this.authService.autoAuthUser();
     console.log(this.router.url);
   }

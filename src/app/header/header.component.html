@@ -1,37 +1,46 @@
-<mat-toolbar class="header">
-  <img class="logo-img" src="../../assets/logoOrg.PNG" alt="logo" />
-  <span>
-    <a class="logo-name" mat-button routerLink="/">Pic Hub</a>
-  </span>
-  <span class="spacer"></span>
-  <ul>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/posts/home" routerLinkActive="mat-accent"
-        >Home</a
-      >
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/posts/create" routerLinkActive="mat-accent"
-        >New Post</a
-      >
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
-        >Login</a
-      >
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
-        >Signup</a
-      >
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button class="logout" mat-button (click)="onLogout()">Logout</button>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button class="userName" mat-raised-button="accent">
-        {{ userName }}
-      </button>
-    </li>
-  </ul>
-</mat-toolbar>
+<mat-nav-list *ngIf="userIsAuthenticated">
+  <a
+    mat-list-item
+    *ngIf="userIsAuthenticated"
+    routerLink="/posts/home"
+    routerLinkActive="mat-accent"
+    >Home</a
+  >
+  <a
+    mat-list-item
+    *ngIf="userIsAuthenticated"
+    routerLink="/posts/create"
+    routerLinkActive="mat-accent"
+    >New Post</a
+  >
+  <a
+    mat-list-item
+    *ngIf="!userIsAuthenticated"
+    routerLink="/auth/login"
+    routerLinkActive="mat-accent"
+    >Login</a
+  >
+  <a
+    mat-list-item
+    *ngIf="!userIsAuthenticated"
+    routerLink="/auth/signup"
+    routerLinkActive="mat-accent"
+    >Signup</a
+  >
+  <button
+    *ngIf="userIsAuthenticated"
+    class="userName"
+    mat-raised-button="accent"
+    (click)="onLogout()"
+  >
+    Logout
+  </button>
+  <!-- <button
+    *ngIf="userIsAuthenticated"
+    class="userName"
+    mat-raised-button="accent"
+  >
+    {{ userName }}
+  </button> -->
+  <!-- <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a> -->
+</mat-nav-list>
