@@ -1,16 +1,16 @@
-<mat-toolbar class="header">
+<mat-toolbar class="header-navigation">
+  <!-- <img class="logo-img" src="../../assets/logoOrg.PNG" alt="logo" /> -->
+  <span>
+    <a class="logo-name" mat-button routerLink="/">Web App</a>
+  </span>
   <button
     mat-icon-button
     class="mat-toggle"
     *ngIf="userIsAuthenticated"
-    (click)="drawer.toggle()"
+    (click)="opened = !opened"
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <img class="logo-img" src="../../assets/logoOrg.PNG" alt="logo" />
-  <span>
-    <a class="logo-name" mat-button routerLink="/">Pic Hub</a>
-  </span>
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
@@ -37,10 +37,20 @@
       <button class="logout" mat-button (click)="onLogout()">Logout</button>
     </li> -->
     <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+        ><i class="fas fa-bell"></i>&nbsp; Notifications</a
+      >
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+        ><i class="fas fa-list"></i> &nbsp;Tasks</a
+      >
+    </li>
+    <li *ngIf="userIsAuthenticated">
       <button
         class="userName"
         mat-raised-button="accent"
-        (click)="drawer.toggle()"
+        (click)="opened = !opened"
       >
         {{ userName }}
       </button>
@@ -49,7 +59,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container" autosize>
-  <mat-sidenav #drawer mode="over" class="example-sidenav" mode="side">
+  <mat-sidenav [(opened)]="opened" class="example-sidenav" mode="side">
     <app-header></app-header>
   </mat-sidenav>
   <mat-sidenav-content>

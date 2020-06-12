@@ -21,7 +21,6 @@
   width: 99.5%;
   margin: auto;
   padding: 0.1%;
-  background-color: #3e3a3a;
   border-radius: 1%;
 }
 .mat-form-field-appearance-legacy .mat-form-field-infix {
@@ -33,6 +32,10 @@
 }
 .example-sidenav {
   padding: 1%;
+}
+mat-sidenav-content {
+  height: 90vh;
+  background-color: rgb(62, 58, 58);
 }
 
 /* For Headers */
@@ -65,7 +68,7 @@ ul {
   text-decoration-line: underline;
 }
 
-.header {
+.header-navigation {
   margin-bottom: 0.2%;
   background-color: black;
 }

@@ -1,0 +1,11 @@
+<!-- Navbar content -->
+<nav class="navbar navbar-dark bg-dark fixed-bottom">
+  <mat-paginator
+    [length]="totalPosts"
+    [pageSize]="postsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+    *ngIf="posts.length > 0"
+    class="paginator"
+  ></mat-paginator>
+</nav>

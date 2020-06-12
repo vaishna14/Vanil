@@ -1,0 +1,16 @@
+.mat-select-arrow {
+  color: white;
+}
+
+.ng-tns-c14-2.ng-star-inserted {
+  color: white;
+}
+
+mat-paginator {
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+.mat-select-value {
+  color: white !important;
+}

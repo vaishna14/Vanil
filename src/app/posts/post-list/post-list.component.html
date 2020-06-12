@@ -1,231 +1,68 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div class="display-flex">
+<div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
   <div class="row">
-    <div class="profile-card col-sm-8 col-md-4 col-lg-4">
-      <app-my-profile></app-my-profile>
-    </div>
     <div
-      *ngIf="posts.length > 0 && !isLoading"
-      class="posts-list col-sm-10 col-md-6 col-lg-6"
+      class="ui link card example-card col-sm-6 col-md-4 col-lg-5"
+      *ngFor="let post of posts"
     >
-      <div class="ui card example-card" *ngFor="let post of posts">
-        <div class="content">
-          <div class="right floated meta">14h</div>
-          <img class="ui avatar image" src="../../../assets/matt.jpg" />
-          {{ post.userName }}
-        </div>
-        <div class="meta">
-          <span class="date">{{ post.title }}</span>
-        </div>
-        <div class="description display-flex justify-flex-end">
-          {{ post.content }}
-        </div>
-        <div class="image">
-          <img [src]="post.imagePath" [alt]="post.title" />
-        </div>
-        <div class="content">
-          <span class="right floated">
-            <div
-              class="ui labeled button"
-              tabindex="0"
-              *ngIf="userIsAuthenticated && userId !== post.creator"
-            >
-              <div class="ui purple button"><i class="share icon"></i></div>
-              <a class="ui basic purple left pointing label">
-                Share
-              </a>
-            </div>
-            <div *ngIf="userIsAuthenticated && userId === post.creator">
-              <button class="ui basic purple icon button">
-                <a class="edit-post" [routerLink]="['/posts/edit', post.id]">
-                  <i class="icon edit"></i>
-                </a>
-              </button>
-              <button
-                class="ui basic purple icon button"
-                (click)="onDelete(post.id)"
-              >
-                <i class="icon trash"></i>
-              </button>
-            </div>
-          </span>
-          <div class="ui labeled button" tabindex="0">
-            <div class="ui red button" (click)="onLike(post.id)">
-              <i class="heart icon"></i>
-            </div>
-            <a class="ui basic red left pointing label">
-              {{ post.likes }}
-            </a>
-          </div>
-          <!-- <i class="comment icon"></i>
-        3 comments -->
-        </div>
-
-        <!-- <div class="extra content">
-          <div class="ui large transparent left icon input">
-            <i class="heart outline icon"></i>
-            <input type="text" placeholder="Add Comment..." />
-          </div>
-        </div> -->
-      </div>
-
-      <!-- <div class="ui card example-card" *ngFor="let post of posts">
       <div class="content">
-        <a class="avatar">
-          <img src="../../../assets/matt.jpg" />
-        </a>
-        <a class="header">{{ post.userName }}</a>
-        <div class="meta">
-          <span class="date">{{ post.title }}</span>
-        </div>
-        <div class="description display-flex justify-flex-end">
-          {{ post.content }}
-        </div>
+        <div class="right floated meta">14h</div>
+        <img class="ui avatar image" src="../../../assets/matt.jpg" />
+        {{ post.userName }}
+      </div>
+      <div class="meta">
+        <span class="date">{{ post.title }}</span>
+      </div>
+      <div class="description display-flex justify-flex-end">
+        {{ post.content }}
       </div>
       <div class="image">
         <img [src]="post.imagePath" [alt]="post.title" />
       </div>
-      <div class="extra content display-flex justify-space-between">
-        <div>
-          <div class="ui labeled button" tabindex="0">
-            <div class="ui red button" (click)="onLike(post.id)">
-              <i class="heart icon"></i>
-            </div>
-            <a class="ui basic red left pointing label">
-              {{ post.likes }}
+      <div class="content">
+        <span class="right floated">
+          <div
+            class="ui labeled button"
+            tabindex="0"
+            *ngIf="userIsAuthenticated && userId !== post.creator"
+          >
+            <div class="ui purple button"><i class="share icon"></i></div>
+            <a class="ui basic purple left pointing label">
+              Share
             </a>
           </div>
-        </div>
-        <div
-          class="ui labeled button"
-          tabindex="0"
-          *ngIf="userIsAuthenticated && userId !== post.creator"
-        >
-          <div class="ui purple button"><i class="share icon"></i></div>
-          <a class="ui basic purple left pointing label">
-            Share
+          <div *ngIf="userIsAuthenticated && userId === post.creator">
+            <button class="ui basic purple icon button">
+              <a class="edit-post" [routerLink]="['/posts/edit', post.id]">
+                <i class="icon edit"></i>
+              </a>
+            </button>
+            <button
+              class="ui basic purple icon button"
+              (click)="onDelete(post.id)"
+            >
+              <i class="icon trash"></i>
+            </button>
+          </div>
+        </span>
+        <div class="ui labeled button" tabindex="0">
+          <div class="ui red button" (click)="onLike(post.id)">
+            <i class="heart icon"></i>
+          </div>
+          <a class="ui basic red left pointing label">
+            {{ post.likes }}
           </a>
         </div>
-        <div *ngIf="userIsAuthenticated && userId === post.creator">
-          <button class="ui basic purple icon button">
-            <a class="edit-post" [routerLink]="['/posts/edit', post.id]">
-              <i class="icon edit"></i>
-            </a>
-          </button>
-          <button
-            class="ui basic purple icon button"
-            (click)="onDelete(post.id)"
-          >
-            <i class="icon trash"></i>
-          </button>
-        </div>
       </div>
-
-      <!-- <mat-card class="example-card" *ngFor="let post of posts">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{ post.userName }}</mat-card-title>
-        <mat-card-subtitle>{{ post.title }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="display-flex justify-flex-end">
-        <p>
-          {{ post.content }}
-        </p>
-      </mat-card-content>
-      <img mat-card-image [src]="post.imagePath" [alt]="post.title" />
-      <mat-card-actions class="display-flex justify-space-between">
-        <div class="display-flex">
-          <div class="ui labeled button" tabindex="0">
-            <div class="ui red button"><i class="heart icon"></i> Like</div>
-            <a class="ui basic red left pointing label">
-              1,048
-            </a>
-          </div>
-
-          <div>
-            <a
-              mat-button
-              color="accent"
-              *ngIf="userIsAuthenticated && userId === post.creator"
-              [routerLink]="['/posts/edit', post.id]"
-              >SHARE</a
-            >
-          </div> -->
-      <!-- <div
-            id="socialShare"
-            *ngIf="userIsAuthenticated"
-            [routerLink]="['/posts/share', post.id]"
-          >
-            <div class="socialBox pointer">
-              <span class="fa fa-share-alt" (click)="shareButton()"></span>
-              <div id="socialGallery" *ngIf="showShare">
-                <div class="socialToolBox">
-                  <a class="facebook" href=""><i class="fa fa-facebook"></i></a>
-                  <a class="google" href=""
-                    ><i class="fa fa-google-plus"></i
-                  ></a>
-                  <a class="instagram" href=""
-                    ><i class="fa fa-instagram"></i
-                  ></a>
-                  <a class="tumblr" href=""><i class="fa fa-tumblr"></i></a>
-                  <a class="twitter" href=""><i class="fa fa-twitter"></i></a>
-                  <a class="youtube" href=""><i class="fa fa-youtube"></i></a>
-                </div>
-              </div>
-            </div>
-          </div> -->
-      <!-- </div>
-        <div>
-          <a
-            mat-button
-            color="primary"
-            *ngIf="userIsAuthenticated && userId === post.creator"
-            [routerLink]="['/posts/edit', post.id]"
-            >EDIT</a
-          >
-          <button
-            mat-button
-            color="warn"
-            *ngIf="userIsAuthenticated && userId === post.creator"
-            (click)="onDelete(post.id)"
-          >
-            DELETE
-          </button>
-        </div> -->
-      <!-- <div>
-        <h3>Comments</h3>
-        <div>
-          <div>
-            <img
-              src="https://react.semantic-ui.com/images/avatar/small/matt.jpg"
-            />
-          </div>
-          <div>
-            <a>Matt</a>
-            <div><div>Today at 5:42PM</div></div>
-            <div>How artistic!</div>
-            <div><a class="">Reply</a></div>
-          </div>
-        </div>
-      </div> -->
-      <!-- </mat-card-actions>
-    </mat-card> -->
-      <!-- </div>  -->
     </div>
   </div>
-
-  <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
-    No posts added yet!
-  </p>
 </div>
+
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+  No posts added yet!
+</p>
+
 <div>
-  <mat-paginator
-    [length]="totalPosts"
-    [pageSize]="postsPerPage"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="onChangedPage($event)"
-    *ngIf="posts.length > 0"
-    class="paginator"
-  ></mat-paginator>
+  <app-paginator></app-paginator>
 </div>

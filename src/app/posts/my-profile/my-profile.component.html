@@ -1,74 +1,99 @@
-<div class="ui card">
-  <div class="content">
-    <a class="header">About Me</a>
-    <!-- <div class="meta">
-      <span class="date">Joined in 2013</span>
-    </div> -->
-    <div class="description" contenteditable="true">
-      Please write some details about you here....
+<div class="row">
+  <div class="ui card myProfile col-lg-4 col-md-6 col-sm-6">
+    <div class="content">
+      <a class="header">Avatar</a>
+    </div>
+    <div class="image">
+      <button class="ui button edit-avatar" (click)="openModal()">
+        <i class="edit icon"></i>
+      </button>
+      <img
+        class="myProfile-img"
+        *ngIf="myProfile !== undefined"
+        [src]="'../../../assets/' + myProfile"
+      />
+      <img
+        class="myProfile-img"
+        *ngIf="myProfile === undefined"
+        src="../../../assets/myprofile.png"
+      />
     </div>
   </div>
-  <div class="image">
-    <button class="ui button edit-avatar" (click)="openModal()">
-      <i class="edit icon"></i>
-    </button>
-    <img
-      *ngIf="myProfile !== undefined"
-      [src]="'../../../assets/' + myProfile"
-    />
-    <img *ngIf="myProfile === undefined" src="../../../assets/myprofile.png" />
-  </div>
-  <div class="extra content">
-    <table
-      [ngClass]="
-        click
-          ? 'animate__animated animate__flash table table-hover'
-          : 'table table-hover'
-      "
-    >
-      <tbody>
-        <tr>
-          <td>First Name<i class="fas fa-pencil-alt"></i></td>
-          <td (keyup)="change('firstName', $event)" contenteditable="true">
-            {{ firstName }}
-          </td>
-        </tr>
-        <tr>
-          <td>Last Name<i class="fas fa-pencil-alt"></i></td>
-          <td (keyup)="change('lastName', $event)" contenteditable="true">
-            {{ lastName }}
-          </td>
-        </tr>
-        <tr>
-          <td>UserName</td>
-          <td (keyup)="change('userName', $event)" contenteditable="false">
-            {{ userName }}
-          </td>
-        </tr>
-        <tr>
-          <td>Contact<i class="fas fa-pencil-alt"></i></td>
-          <td (keyup)="change('contact', $event)" contenteditable="true">
-            {{ contact }}
-          </td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>
-            {{ email }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- <a>
-      <i class="user icon"></i>
-      22 Friends
-    </a> -->
-  </div>
-  <button mat-button (click)="UpdateDetails()" color="accent">
-    Update
-  </button>
-</div>
+  <div class="ui card myProfile col-lg-4 col-md-6 col-sm-6">
+    <div class="content">
+      <a class="header">About Me</a>
 
+      <!-- <div class="meta">
+      <span class="date">Joined in 2013</span>
+    </div> -->
+      <div class="description" contenteditable="true">
+        Please write some details about you here....
+      </div>
+      <table
+        [ngClass]="
+          click
+            ? 'animate__animated animate__flash table table-hover'
+            : 'table table-hover'
+        "
+      >
+        <tbody>
+          <tr>
+            <td>First Name<i class="fas fa-pencil-alt"></i></td>
+            <td (keyup)="change('firstName', $event)" contenteditable="true">
+              {{ firstName }}
+            </td>
+          </tr>
+          <tr>
+            <td>Last Name<i class="fas fa-pencil-alt"></i></td>
+            <td (keyup)="change('lastName', $event)" contenteditable="true">
+              {{ lastName }}
+            </td>
+          </tr>
+          <tr>
+            <td>UserName</td>
+            <td (keyup)="change('userName', $event)" contenteditable="false">
+              {{ userName }}
+            </td>
+          </tr>
+          <tr>
+            <td>Contact<i class="fas fa-pencil-alt"></i></td>
+            <td (keyup)="change('contact', $event)" contenteditable="true">
+              {{ contact }}
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>
+              {{ email }}
+            </td>
+          </tr>
+          <tr>
+            <td>MyProjects</td>
+            <td>
+              {{ email }}
+            </td>
+          </tr>
+          <tr>
+            <td>Reporting Manager</td>
+            <td>
+              {{ email }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="display-flex justify-flex-end">
+        <button mat-raised-button (click)="UpdateDetails()" color="accent">
+          Update
+        </button>
+      </div>
+
+      <!-- <a>
+    <i class="user icon"></i>
+    22 Friends
+  </a> -->
+    </div>
+  </div>
+</div>
 <div
   [ngClass]="
     showModal

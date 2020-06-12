@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   userIsAuthenticated = false;
   userName: string;
   private authListenerSubs: Subscription;
+  opened = true;
 
   constructor(
     private authService: AuthService,
@@ -35,12 +36,10 @@ export class AppComponent implements OnInit {
     this.authService.autoAuthUser();
     console.log(this.router.url);
   }
-
-  // this.errorSub = this.errorService.getErrorListener().subscribe(
-  //   message => this.hasError = message !== null
-  // );
-
-  // ngOnDestroy() {
-  //   this.errorSub.unsubscribe();
-  // }
 }
+// this.errorSub = this.errorService.getErrorListener().subscribe(
+//   message => this.hasError = message !== null
+// );
+
+// ngOnDestroy() {
+//   this.errorSub.unsubscribe();

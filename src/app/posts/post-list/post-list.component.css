@@ -7,17 +7,13 @@ mat-spinner {
   margin: auto;
 }
 
-mat-paginator {
-  margin-top: 1rem;
-  color: white;
-}
-
 .info-text {
   text-align: center;
 }
 
 .ui.card.example-card {
   width: 100%;
+  margin: 2% auto;
 }
 
 .example-header-image {
@@ -49,8 +45,6 @@ body {
 }
 
 .posts-list {
-  margin: 10px auto;
-  width: 70%;
   padding: 0% 3% 3% 3%;
 }
 .mat-select-value {
@@ -74,4 +68,23 @@ body {
 
 .description.display-flex.justify-flex-end {
   padding-right: 3%;
+}
+
+/* .paginator */
+
+.mat-select-arrow {
+  color: white;
+}
+
+.ng-tns-c14-2.ng-star-inserted {
+  color: white;
+}
+
+mat-paginator {
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+.mat-select-value {
+  color: white !important;
 }

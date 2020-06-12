@@ -15,6 +15,13 @@
   >
   <a
     mat-list-item
+    *ngIf="userIsAuthenticated"
+    routerLink="/posts/myProfile"
+    routerLinkActive="mat-accent"
+    >My Profile</a
+  >
+  <a
+    mat-list-item
     *ngIf="!userIsAuthenticated"
     routerLink="/auth/login"
     routerLinkActive="mat-accent"
