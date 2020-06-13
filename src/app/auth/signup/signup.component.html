@@ -1,119 +1,140 @@
-<mat-card class="col-12 signup-card margin-auto">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form
-    (submit)="onSignup(signupForm)"
-    #signupForm="ngForm"
-    *ngIf="!isLoading"
-    class="margin-auto"
-  >
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            matInput
-            name="firstName"
-            ngModel
-            type="text"
-            placeholder="First Name"
-            #firstName="ngModel"
-            required
-          />
-          <mat-error *ngIf="firstName.invalid"
-            >Please enter a valid Name.</mat-error
-          >
-        </mat-form-field>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            matInput
-            name="lastName"
-            ngModel
-            type="text"
-            placeholder="Last Name"
-            #lastName="ngModel"
-            required
-          />
-          <mat-error *ngIf="lastName.invalid"
-            >Please enter a valid Name.</mat-error
-          >
-        </mat-form-field>
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-lg-10 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <!-- <mat-card class="col-12 signup-card margin-auto"> -->
+              <mat-spinner *ngIf="isLoading"></mat-spinner>
+              <form
+                (submit)="onSignup(signupForm)"
+                #signupForm="ngForm"
+                *ngIf="!isLoading"
+                class="margin-auto"
+              >
+                <h1>Register</h1>
+                <p class="text-muted">Create your account</p>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        name="firstName"
+                        ngModel
+                        type="text"
+                        placeholder="First Name"
+                        #firstName="ngModel"
+                        required
+                      />
+                      <mat-error *ngIf="firstName.invalid"
+                        >Please enter a valid Name.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        name="lastName"
+                        ngModel
+                        type="text"
+                        placeholder="Last Name"
+                        #lastName="ngModel"
+                        required
+                      />
+                      <mat-error *ngIf="lastName.invalid"
+                        >Please enter a valid Name.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        name="userName"
+                        ngModel
+                        type="text"
+                        placeholder="Preferred User Name"
+                        #userName="ngModel"
+                        required
+                      />
+                      <mat-error *ngIf="userName.invalid"
+                        >Please enter a valid Name.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        name="contact"
+                        ngModel
+                        type="number"
+                        maxlength="10"
+                        placeholder="Contact"
+                        #contact="ngModel"
+                        required
+                      />
+                      <mat-error *ngIf="contact.invalid"
+                        >Please enter a valid Number.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        matInput
+                        name="email"
+                        ngModel
+                        type="email"
+                        placeholder="E-Mail"
+                        #emailInput="ngModel"
+                        required
+                        email
+                      />
+                      <mat-error *ngIf="emailInput.invalid"
+                        >Please enter a valid email.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field>
+                      <input
+                        type="password"
+                        name="password"
+                        ngModel
+                        matInput
+                        placeholder="Password"
+                        #passwordInput="ngModel"
+                        required
+                      />
+                      <mat-error *ngIf="passwordInput.invalid"
+                        >Please enter a valid password.</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="display-flex justify-flex-end">
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    type="submit"
+                    *ngIf="!isLoading"
+                  >
+                    Signup
+                  </button>
+                </div>
+              </form>
+              <!-- </mat-card> -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            matInput
-            name="userName"
-            ngModel
-            type="text"
-            placeholder="Preferred User Name"
-            #userName="ngModel"
-            required
-          />
-          <mat-error *ngIf="userName.invalid"
-            >Please enter a valid Name.</mat-error
-          >
-        </mat-form-field>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            matInput
-            name="contact"
-            ngModel
-            type="number"
-            maxlength="10"
-            placeholder="Contact"
-            #contact="ngModel"
-            required
-          />
-          <mat-error *ngIf="contact.invalid"
-            >Please enter a valid Number.</mat-error
-          >
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            matInput
-            name="email"
-            ngModel
-            type="email"
-            placeholder="E-Mail"
-            #emailInput="ngModel"
-            required
-            email
-          />
-          <mat-error *ngIf="emailInput.invalid"
-            >Please enter a valid email.</mat-error
-          >
-        </mat-form-field>
-      </div>
-      <div class="col-sm-12 col-md-6">
-        <mat-form-field>
-          <input
-            type="password"
-            name="password"
-            ngModel
-            matInput
-            placeholder="Password"
-            #passwordInput="ngModel"
-            required
-          />
-          <mat-error *ngIf="passwordInput.invalid"
-            >Please enter a valid password.</mat-error
-          >
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="display-flex justify-flex-end">
-      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">
-        Signup
-      </button>
-    </div>
-  </form>
-</mat-card>
+  </main>
+</div>
