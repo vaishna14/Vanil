@@ -87,7 +87,7 @@ export class TeamDetailsComponent implements OnInit {
     }
   }
 
-  selected = "option2";
+  selected = "Team";
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
