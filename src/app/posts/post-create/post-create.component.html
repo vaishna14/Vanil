@@ -1,18 +1,25 @@
 <mat-card class="post-create">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <h1>Create new Task</h1>
+  <p class="text-muted">Please fill below details</p>
   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
-    <mat-form-field>
-      <input
-        matInput
-        type="text"
-        formControlName="title"
-        placeholder="Post Title"
-      />
-      <mat-error *ngIf="form.get('title').invalid"
-        >Please enter a post title.</mat-error
-      >
-    </mat-form-field>
-    <div class="pick-image">
+    <table class="margin-auto form-table">
+      <tr>
+        <td>
+          <mat-form-field class="form-table-td" appearance="outline">
+            <input
+              matInput
+              type="text"
+              formControlName="title"
+              placeholder="Task Title"
+            />
+            <mat-error *ngIf="form.get('title').invalid"
+              >Please enter a post title.</mat-error
+            >
+          </mat-form-field>
+        </td>
+        <td>
+          <!-- <div class="pick-image">
       <button mat-stroked-button type="button" (click)="filePicker.click()">
         Pick Image
       </button>
@@ -23,18 +30,46 @@
       *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
     >
       <img [src]="imagePreview" [alt]="form.value.title" />
-    </div>
-    <mat-form-field>
-      <textarea
-        matInput
-        rows="4"
-        formControlName="content"
-        placeholder="Post Content"
-      ></textarea>
-      <mat-error *ngIf="form.get('content').invalid"
-        >Please enter a post title.</mat-error
-      >
-    </mat-form-field>
+    </div> -->
+          <mat-form-field class="form-table-td" appearance="outline">
+            <input
+              type="text"
+              matInput
+              formControlName="content"
+              placeholder="Task Description"
+            />
+            <mat-error *ngIf="form.get('content').invalid"
+              >Please enter a task Description.</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="form-table-td" appearance="outline">
+            <mat-label>Select</mat-label>
+            <mat-select>
+              <mat-option value="option">Not Started</mat-option>
+              <mat-option value="option">In Progress</mat-option>
+              <mat-option value="option">Completed</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="form-table-td" appearance="outline">
+            <input
+              type="text"
+              matInput
+              formControlName="time"
+              placeholder="Estimated Time"
+            />
+            <mat-error *ngIf="form.get('time').invalid"
+              >Please enter a Estimated Time.</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
     <button mat-raised-button color="accent" type="submit">Save Post</button>
   </form>
 </mat-card>

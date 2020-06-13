@@ -27,6 +27,7 @@
       <span class="date">Joined in 2013</span>
     </div> -->
       <div class="description" contenteditable="true">
+        <i class="fas fa-pencil-alt"></i>
         Please write some details about you here....
       </div>
       <table
@@ -44,26 +45,26 @@
             </td>
           </tr>
           <tr>
-            <td>First Name<i class="fas fa-pencil-alt"></i></td>
-            <td (keyup)="change('firstName', $event)" contenteditable="true">
+            <td>First Name</td>
+            <td (keyup)="change('firstName', $event)">
               {{ firstName }}
             </td>
           </tr>
           <tr>
-            <td>Last Name<i class="fas fa-pencil-alt"></i></td>
-            <td (keyup)="change('lastName', $event)" contenteditable="true">
+            <td>Last Name</td>
+            <td (keyup)="change('lastName', $event)">
               {{ lastName }}
             </td>
           </tr>
           <tr>
             <td>UserName</td>
-            <td (keyup)="change('userName', $event)" contenteditable="false">
+            <td (keyup)="change('userName', $event)">
               {{ userName }}
             </td>
           </tr>
           <tr>
-            <td>Contact<i class="fas fa-pencil-alt"></i></td>
-            <td (keyup)="change('contact', $event)" contenteditable="true">
+            <td>Contact</td>
+            <td (keyup)="change('contact', $event)">
               {{ contact }}
             </td>
           </tr>

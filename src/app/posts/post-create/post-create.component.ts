@@ -7,11 +7,10 @@ import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
 import { mimeType } from "./mime-type.validator";
 import { AuthService } from "../../auth/auth.service";
-
 @Component({
   selector: "app-post-create",
   templateUrl: "./post-create.component.html",
-  styleUrls: ["./post-create.component.css"],
+  styleUrls: ["./post-create.component.css", "../../app.component.css"],
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
@@ -41,6 +40,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required, Validators.minLength(3)],
       }),
       content: new FormControl(null, { validators: [Validators.required] }),
+      time: new FormControl(null, { validators: [Validators.required] }),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType],

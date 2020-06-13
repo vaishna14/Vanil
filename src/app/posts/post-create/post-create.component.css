@@ -27,5 +27,12 @@ input[type="file"] {
 }
 
 .post-create {
-  margin: 9%;
+  margin: 9% auto;
+  width: 50%;
+}
+.form-table {
+  width: 90%;
+}
+.form-table-td {
+  width: 90%;
 }
