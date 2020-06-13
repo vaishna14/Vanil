@@ -1,0 +1,9 @@
+.ui.card:first-child {
+  margin: auto;
+}
+.team-row {
+  margin: auto;
+}
+.team-card {
+  margin: 1em auto;
+}

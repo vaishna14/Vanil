@@ -14,11 +14,6 @@
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/posts/home" routerLinkActive="mat-accent"
-        >Home</a
-      >
-    </li>
-    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/posts/create" routerLinkActive="mat-accent"
         >New Post</a
       >
@@ -42,7 +37,7 @@
       >
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+      <a mat-button routerLink="/posts/home" routerLinkActive="mat-accent"
         ><i class="fas fa-list"></i> &nbsp;Tasks</a
       >
     </li>

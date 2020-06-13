@@ -1,0 +1,30 @@
+.team-details-card {
+  background-color: white;
+  margin: auto;
+  margin-top: 1em;
+}
+.chart-nav {
+  width: 100%;
+  color: white;
+  margin: 1em auto;
+}
+.heading-chart {
+  height: 50px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.heading-value {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.table-myteam {
+  width: 90%;
+  margin: auto;
+}
+.paginator-myteam {
+  margin: auto;
+  width: 90%;
+}

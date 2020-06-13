@@ -16,6 +16,14 @@
   <a
     mat-list-item
     *ngIf="userIsAuthenticated"
+    routerLink="/teams"
+    routerLinkActive="mat-accent"
+    [matMenuTriggerFor]="menu"
+    >My Team</a
+  >
+  <a
+    mat-list-item
+    *ngIf="userIsAuthenticated"
     routerLink="/posts/myProfile"
     routerLinkActive="mat-accent"
     >My Profile</a
@@ -51,3 +59,10 @@
   </button> -->
   <!-- <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a> -->
 </mat-nav-list>
+
+<mat-menu #menu="matMenu" xPosition="after">
+  <button mat-menu-item routerLink="/teams/MyTeams">MyPPluS</button>
+  <button mat-menu-item>Vodafone</button>
+  <button mat-menu-item>GDSPA</button>
+  <button mat-menu-item>Internal Project</button>
+</mat-menu>

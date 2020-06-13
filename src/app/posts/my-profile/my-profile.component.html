@@ -38,6 +38,12 @@
       >
         <tbody>
           <tr>
+            <td>PSA id</td>
+            <td (keyup)="change('firstName', $event)">
+              233183
+            </td>
+          </tr>
+          <tr>
             <td>First Name<i class="fas fa-pencil-alt"></i></td>
             <td (keyup)="change('firstName', $event)" contenteditable="true">
               {{ firstName }}

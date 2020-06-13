@@ -28,10 +28,10 @@
 }
 
 .margin-auto {
-  margin: auto;
+  margin: auto !important;
 }
 .example-sidenav {
-  padding: 1%;
+  padding: 2%;
 }
 mat-sidenav-content {
   height: 90vh;
