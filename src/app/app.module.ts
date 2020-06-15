@@ -15,8 +15,8 @@ import { AngularMaterialModule } from "./angular-material.module";
 // import { LayOutModule } from "./LayoutComponent/layout.module";
 // import { MyProfileComponent } from "./LayoutComponent/my-profile/my-profile.component";
 import { EditMyprofileComponent } from "./posts/edit-myprofile/edit-myprofile.component";
-import { TeamComponent } from "./team/team.component";
-import { TeamDetailsComponent } from "./team-details/team-details.component";
+import { TeamComponent } from "./Teams/team/team.component";
+import { TeamDetailsComponent } from "./Teams/team-details/team-details.component";
 
 @NgModule({
   declarations: [

@@ -2,8 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "./auth/auth.guard";
 import { LayOutModule } from "./LayoutComponent/layout.module";
-import { TeamComponent } from "./team/team.component";
-import { TeamDetailsComponent } from "./team-details/team-details.component";
+import { TeamComponent } from "./Teams/team/team.component";
+import { TeamDetailsComponent } from "./Teams/team-details/team-details.component";
 
 const routes: Routes = [
   { path: "auth", loadChildren: "./auth/auth.module#AuthModule" },
