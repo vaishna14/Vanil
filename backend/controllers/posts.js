@@ -7,10 +7,15 @@ exports.createPost = async (req, res, next) => {
     const post = new Post({
       title: req.body.title,
       content: req.body.content,
-      imagePath: url + "/images/" + req.file.filename,
+      time: req.body.time,
+      status: req.body.status,
       creator: req.userData.userId,
-      userName: response.userName
+      userName: response.userName,
+      createdDate: new Date(),
+      InprogressDate: null,
+      CompletedDate: null
     });
+    console.log(post)
     post
       .save()
       .then(createdPost => {
@@ -39,50 +44,86 @@ exports.updatePost = (req, res, next) => {
 
 
   Post.findOne({ _id: req.params.id, creator: req.userData.userId }).then(exist_post => {
+
     if (exist_post) {
-      const post = new Post({
-        _id: req.body.id,
-        title: req.body.title,
-        content: req.body.content,
-        imagePath: imagePath,
-        creator: req.userData.userId
-      });
-      Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
-        .then(result => {
-          if (result.n > 0) {
-            res.status(200).json({ message: "Update successful!" });
-          } else {
-            res.status(401).json({ message: "Not authorized!" });
-          }
-        })
-        .catch(error => {
-          res.status(500).json({
-            message: "Couldn't udpate post!"
-          });
+      if (req.body.status === "In Progress") {
+        const post = new Post({
+          _id: req.body.id,
+          title: req.body.title,
+          content: req.body.content,
+          time: req.body.time,
+          status: req.body.status,
+          creator: req.userData.userId,
+          InprogressDate: new Date()
         });
-    } else {
-      const post = new Post({
-        title: req.body.title,
-        content: req.body.content,
-        imagePath: imagePath,
-        creator: req.userData.userId
-      });
-      post
-        .save()
-        .then(createdPost => {
-          res.status(201).json({
-            message: "Post added successfully",
-            post: {
-              ...createdPost,
-              id: createdPost._id
+        console.log(post)
+        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+          .then(result => {
+            if (result.n > 0) {
+              res.status(200).json({ message: "Update successful!" });
+            } else {
+              res.status(401).json({ message: "Not authorized!" });
             }
+          })
+          .catch(error => {
+            console.log(error)
+            res.status(500).json({
+              message: "Couldn't udpate post!"
+            });
           });
-        })
-        .catch(error => {
-          res.status(500).json({
-            message: "Creating a post failed!"
-          });
+      }
+      else if (req.body.status === "Completed") {
+        const post = new Post({
+          _id: req.body.id,
+          title: req.body.title,
+          content: req.body.content,
+          time: req.body.time,
+          status: req.body.status,
+          creator: req.userData.userId,
+          CompletedDate: new Date()
         });
+        console.log(post)
+        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+          .then(result => {
+            if (result.n > 0) {
+              res.status(200).json({ message: "Update successful!" });
+            } else {
+              res.status(401).json({ message: "Not authorized!" });
+            }
+          })
+          .catch(error => {
+            console.log(error)
+            res.status(500).json({
+              message: "Couldn't udpate post!"
+            });
+          });
+      }
+      else {
+        const post = new Post({
+          _id: req.body.id,
+          title: req.body.title,
+          content: req.body.content,
+          time: req.body.time,
+          status: req.body.status,
+          creator: req.userData.userId,
+        });
+        console.log(post)
+        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+          .then(result => {
+            if (result.n > 0) {
+              res.status(200).json({ message: "Update successful!" });
+            } else {
+              res.status(401).json({ message: "Not authorized!" });
+            }
+          })
+          .catch(error => {
+            console.log(error)
+            res.status(500).json({
+              message: "Couldn't udpate post!"
+            });
+          });
+      }
+
     }
   })
 

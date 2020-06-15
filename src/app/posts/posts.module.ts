@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
@@ -23,6 +23,7 @@ import { PaginatorComponent } from "./paginator/paginator.component";
     AngularMaterialModule,
     RouterModule,
     PostsRoutingModule,
+    FormsModule,
   ],
 })
 export class PostsModule {}

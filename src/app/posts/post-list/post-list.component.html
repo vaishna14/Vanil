@@ -3,9 +3,44 @@
 <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
   <div class="row">
     <div
-      class="ui link card example-card col-sm-6 col-md-4 col-lg-5"
+      class="ui link cards example-card col-sm-6 col-md-5 col-lg-4"
       *ngFor="let post of posts"
     >
+      <div class="card task-card" [routerLink]="['/posts/edit', post.id]">
+        <div class="content">
+          <img
+            class="right floated mini ui image"
+            src="../../../assets/elliot.jpg"
+          />
+          <div class="header">
+            {{ post.userName }}
+          </div>
+          <div class="meta">
+            {{ post.title }}
+          </div>
+          <div class="meta">
+            {{ post.time }}
+          </div>
+          <div class="description display-flex justify-flex-end">
+            {{ post.content }}
+          </div>
+        </div>
+        <div class="extra content right floated ui">
+          <div class="ui two buttons">
+            <div
+              class="ui basic green button"
+              [routerLink]="['/posts/edit', post.id]"
+            >
+              <i class="icon edit"></i>Edit
+            </div>
+            <div class="ui basic red button" (click)="onDelete(post.id)">
+              <i class="icon trash">&nbsp; Delete</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--     
       <div class="content">
         <div class="right floated meta">14h</div>
         <img class="ui avatar image" src="../../../assets/matt.jpg" />
@@ -16,13 +51,13 @@
       </div>
       <div class="description display-flex justify-flex-end">
         {{ post.content }}
-      </div>
-      <div class="image">
+      </div> -->
+      <!-- <div class="image">
         <img [src]="post.imagePath" [alt]="post.title" />
-      </div>
-      <div class="content">
-        <span class="right floated">
-          <div
+      </div> -->
+      <!-- <div class="content">
+        <span class="right floated"> -->
+      <!-- <div
             class="ui labeled button"
             tabindex="0"
             *ngIf="userIsAuthenticated && userId !== post.creator"
@@ -31,8 +66,8 @@
             <a class="ui basic purple left pointing label">
               Share
             </a>
-          </div>
-          <div *ngIf="userIsAuthenticated && userId === post.creator">
+          </div> -->
+      <!-- <div *ngIf="userIsAuthenticated && userId === post.creator">
             <button class="ui basic purple icon button">
               <a class="edit-post" [routerLink]="['/posts/edit', post.id]">
                 <i class="icon edit"></i>
@@ -45,16 +80,15 @@
               <i class="icon trash"></i>
             </button>
           </div>
-        </span>
-        <div class="ui labeled button" tabindex="0">
+        </span> -->
+      <!-- <div class="ui labeled button" tabindex="0">
           <div class="ui red button" (click)="onLike(post.id)">
             <i class="heart icon"></i>
           </div>
           <a class="ui basic red left pointing label">
             {{ post.likes }}
           </a>
-        </div>
-      </div>
+        </div> -->
     </div>
   </div>
 </div>

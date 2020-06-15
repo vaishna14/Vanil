@@ -57,14 +57,14 @@ body {
 
 .edit-post {
   text-decoration: none;
-  color: purple !important;
+  /* color: purple !important; */
 }
-.ui.card .meta,
+/* .ui.card .meta,
 .ui.cards > .card .meta {
   font-size: large;
   color: black;
   padding: 0% 2%;
-}
+} */
 
 .description.display-flex.justify-flex-end {
   padding-right: 3%;
@@ -87,4 +87,21 @@ mat-paginator {
 }
 .mat-select-value {
   color: white !important;
+}
+
+/* Task Card */
+
+.card.task-card {
+  width: 100%;
+}
+.ui.cards ~ .ui.cards {
+  margin: auto;
+}
+
+.icon.trash {
+  width: 100%;
+}
+
+.ui.cards {
+  margin: auto;
 }

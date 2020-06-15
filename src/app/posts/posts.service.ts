@@ -30,10 +30,10 @@ export class PostsService {
                 title: post.title,
                 content: post.content,
                 id: post._id,
-                imagePath: post.imagePath,
+                time: post.time,
                 creator: post.creator,
                 userName: post.userName,
-                likes: post.likes,
+                status: post.status,
               };
             }),
             maxPosts: postData.maxPosts,
@@ -58,18 +58,21 @@ export class PostsService {
       _id: string;
       title: string;
       content: string;
-      imagePath: string;
+      time: string;
       creator: string;
       userName: string;
-      likes: string;
+      status: string;
     }>(BACKEND_URL + id);
   }
 
-  addPost(title: string, content: string, image: File) {
+  addPost(title: string, content: string, time: string, status: string) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
-    postData.append("image", image, title);
+    postData.append("time", time);
+    postData.append("status", status);
+    console.log(status);
+    console.log(postData);
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
@@ -81,26 +84,20 @@ export class PostsService {
     id: string,
     title: string,
     content: string,
-    image: File | string,
-    likes: string
+    time: string,
+    status: string
   ) {
     let postData: Post | FormData;
-    if (typeof image === "object") {
-      postData = new FormData();
-      postData.append("id", id);
-      postData.append("title", title);
-      postData.append("content", content);
-      postData.append("image", image, title);
-    } else {
-      postData = {
-        id: id,
-        title: title,
-        content: content,
-        imagePath: image,
-        creator: null,
-        likes: likes,
-      };
-    }
+
+    postData = {
+      id: id,
+      title: title,
+      content: content,
+      time: time,
+      creator: null,
+      status: status,
+    };
+    console.log(postData);
     this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
       this.router.navigate(["/posts/home"]);
     });

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 
@@ -17,11 +17,12 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   enteredContent = "";
   post: Post;
   isLoading = false;
-  form: FormGroup;
+  form: NgForm;
   imagePreview: string;
   private mode = "create";
   private postId: string;
   private authStatusSub: Subscription;
+  selected = "NotStarted";
 
   constructor(
     public postsService: PostsService,
@@ -35,18 +36,19 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       .subscribe((authStatus) => {
         this.isLoading = false;
       });
-    this.form = new FormGroup({
-      title: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)],
-      }),
-      content: new FormControl(null, { validators: [Validators.required] }),
-      time: new FormControl(null, { validators: [Validators.required] }),
-      image: new FormControl(null, {
-        validators: [Validators.required],
-        asyncValidators: [mimeType],
-      }),
-      likes: new FormControl(null, null),
-    });
+    // this.form = new FormGroup({
+    //   title: new FormControl(null, {
+    //     validators: [Validators.required, Validators.minLength(3)],
+    //   }),
+    //   content: new FormControl(null, { validators: [Validators.required] }),
+    //   time: new FormControl(null, { validators: [Validators.required] }),
+    //   status: new FormControl(null, { validators: [Validators.required] }),
+    //   // image: new FormControl(null, {
+    //   //   validators: [Validators.required],
+    //   //   asyncValidators: [mimeType],
+    //   // }),
+    //   // likes: new FormControl(null, null),
+    // });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
@@ -54,19 +56,20 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe((postData) => {
           this.isLoading = false;
+          console.log(postData);
           this.post = {
             id: postData._id,
             title: postData.title,
             content: postData.content,
-            imagePath: postData.imagePath,
+            time: postData.time,
             creator: postData.creator,
-            likes: postData.likes,
+            status: postData.status,
           };
           this.form.setValue({
             title: this.post.title,
             content: this.post.content,
-            image: this.post.imagePath,
-            likes: this.post.likes,
+            time: this.post.time,
+            status: this.post.status,
           });
         });
       } else {
@@ -77,38 +80,40 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({ image: file });
-    this.form.get("image").updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-  }
+  // onImagePicked(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   form.patchValue({ image: file });
+  //   form.get("image").updateValueAndValidity();
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.imagePreview = reader.result as string;
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
 
-  onSavePost() {
-    if (this.form.invalid) {
+  onSavePost(form: NgForm) {
+    console.log(form.value);
+    if (form.invalid) {
       return;
     }
     this.isLoading = true;
     if (this.mode === "create") {
       this.postsService.addPost(
-        this.form.value.title,
-        this.form.value.content,
-        this.form.value.image
+        form.value.title,
+        form.value.description,
+        form.value.time,
+        form.value.status
       );
     } else {
       this.postsService.updatePost(
         this.postId,
-        this.form.value.title,
-        this.form.value.content,
-        this.form.value.image,
-        this.form.value.likes
+        form.value.title,
+        form.value.description,
+        form.value.time,
+        form.value.status
       );
     }
-    this.form.reset();
+    form.reset();
   }
 
   ngOnDestroy() {
