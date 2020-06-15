@@ -168,7 +168,7 @@ exports.getPost = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching post failed!"
+        message: "Fetching post failed..!"
       });
     });
 };
@@ -193,6 +193,24 @@ exports.deletePost = (req, res, next) => {
 exports.likePost = (req, res, next) => {
   console.log(req.params)
   Post.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } }).then(post => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      res.status(404).json({ message: "Post Liked!" });
+    }
+  })
+    .catch(error => {
+      res.status(500).json({
+        message: "Like post failed!"
+      });
+    });
+
+};
+
+
+exports.barChart = (req, res, next) => {
+  console.log(req.params)
+  Post.find().sort([['_id', -1]]).then(post => {
     if (post) {
       res.status(200).json(post);
     } else {

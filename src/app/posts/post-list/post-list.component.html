@@ -6,12 +6,22 @@
       class="ui link cards example-card col-sm-6 col-md-5 col-lg-4"
       *ngFor="let post of posts"
     >
-      <div class="card task-card" [routerLink]="['/posts/edit', post.id]">
+      <div class="card task-card">
         <div class="content">
           <img
             class="right floated mini ui image"
             src="../../../assets/elliot.jpg"
           />
+          <div class="card-header-actions right floated badge">
+            <span
+              [ngClass]="{
+                'badge-notstarted': post.status == 'NotStarted',
+                'badge-completed': post.status === 'Completed',
+                'badge-inprogress': post.status === 'In Progress'
+              }"
+              >{{ post.status }}</span
+            >
+          </div>
           <div class="header">
             {{ post.userName }}
           </div>

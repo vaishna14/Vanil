@@ -105,3 +105,27 @@ mat-paginator {
 .ui.cards {
   margin: auto;
 }
+
+.badge-notstarted {
+  background-color: red;
+  color: white;
+  padding: 10%;
+  border-radius: 10%;
+  letter-spacing: 0.5px;
+}
+
+.badge-inprogress {
+  background-color: rgb(231, 231, 42);
+  color: black;
+  padding: 10%;
+  letter-spacing: 0.5px;
+  border-radius: 10%;
+}
+
+.badge-completed {
+  background-color: green;
+  color: white;
+  padding: 10%;
+  letter-spacing: 0.5px;
+  border-radius: 10%;
+}
