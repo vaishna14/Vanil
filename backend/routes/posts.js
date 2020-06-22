@@ -18,6 +18,8 @@ router.get("/:id", PostController.getPost);
 router.delete("/:id", checkAuth, PostController.deletePost);
 
 router.get("/like/:id", PostController.likePost);
+router.post("/groupName", PostController.addGroup);
+router.get("/groupName/:id", PostController.getGroup);
 
 
 module.exports = router;

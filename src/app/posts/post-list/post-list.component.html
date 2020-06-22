@@ -1,108 +1,108 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
-  <div class="row">
-    <div
-      class="ui link cards example-card col-sm-6 col-md-5 col-lg-4"
-      *ngFor="let post of posts"
-    >
-      <div class="card task-card">
-        <div class="content">
-          <img
-            class="right floated mini ui image"
-            src="../../../assets/elliot.jpg"
-          />
-          <div class="card-header-actions right floated badge">
-            <span
-              [ngClass]="{
+<div class="container">
+  <div class="new-group">
+    <button class="ui icon button" (click)="addGroup()">
+      <i class="plus icon"></i>
+    </button>
+  </div>
+  <div class="list-container">
+    <h4 style="color: white;">Type1</h4>
+    <div class="todo-container column-container">
+      <div class="list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="posts"
+        [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
+        <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
+          <div class="row">
+            <div class="ui link cards example-card col-sm-6 col-md-4 col-lg-3" *ngFor="let post of posts" cdkDrag>
+              <div class="card task-card">
+                <div class="content">
+                  <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
+                  <div class="card-header-actions right floated badge">
+                    <span [ngClass]="{
                 'badge-notstarted': post.status == 'NotStarted',
                 'badge-completed': post.status === 'Completed',
                 'badge-inprogress': post.status === 'In Progress'
-              }"
-              >{{ post.status }}</span
-            >
-          </div>
-          <div class="header">
-            {{ post.userName }}
-          </div>
-          <div class="meta">
-            {{ post.title }}
-          </div>
-          <div class="meta">
-            {{ post.time }}
-          </div>
-          <div class="description display-flex justify-flex-end">
-            {{ post.content }}
+              }">1</span>
+                  </div>
+                  <div class="header">
+                    {{ post.userName }}
+                  </div>
+                  <div class="meta">
+                    {{ post.title }}
+                  </div>
+                  <div class="meta">
+                    {{ post.time }}
+                  </div>
+                  <div class="description display-flex justify-flex-end">
+                    {{ post.content }}
+                  </div>
+                </div>
+                <div class="extra content right floated ui">
+                  <div class="mini ui two buttons">
+                    <div class="ui basic green button" [routerLink]="['/posts/edit', post.id]">
+                      <i class="icon edit"></i>Edit
+                    </div>
+                    <div class="ui basic red button" (click)="onDelete(post.id)">
+                      <i class="icon trash">&nbsp; Delete</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="extra content right floated ui">
-          <div class="ui two buttons">
-            <div
-              class="ui basic green button"
-              [routerLink]="['/posts/edit', post.id]"
-            >
-              <i class="icon edit"></i>Edit
-            </div>
-            <div class="ui basic red button" (click)="onDelete(post.id)">
-              <i class="icon trash">&nbsp; Delete</i>
-            </div>
-          </div>
-        </div>
       </div>
-
-      <!--     
-      <div class="content">
-        <div class="right floated meta">14h</div>
-        <img class="ui avatar image" src="../../../assets/matt.jpg" />
-        {{ post.userName }}
-      </div>
-      <div class="meta">
-        <span class="date">{{ post.title }}</span>
-      </div>
-      <div class="description display-flex justify-flex-end">
-        {{ post.content }}
-      </div> -->
-      <!-- <div class="image">
-        <img [src]="post.imagePath" [alt]="post.title" />
-      </div> -->
-      <!-- <div class="content">
-        <span class="right floated"> -->
-      <!-- <div
-            class="ui labeled button"
-            tabindex="0"
-            *ngIf="userIsAuthenticated && userId !== post.creator"
-          >
-            <div class="ui purple button"><i class="share icon"></i></div>
-            <a class="ui basic purple left pointing label">
-              Share
-            </a>
-          </div> -->
-      <!-- <div *ngIf="userIsAuthenticated && userId === post.creator">
-            <button class="ui basic purple icon button">
-              <a class="edit-post" [routerLink]="['/posts/edit', post.id]">
-                <i class="icon edit"></i>
-              </a>
-            </button>
-            <button
-              class="ui basic purple icon button"
-              (click)="onDelete(post.id)"
-            >
-              <i class="icon trash"></i>
-            </button>
-          </div>
-        </span> -->
-      <!-- <div class="ui labeled button" tabindex="0">
-          <div class="ui red button" (click)="onLike(post.id)">
-            <i class="heart icon"></i>
-          </div>
-          <a class="ui basic red left pointing label">
-            {{ post.likes }}
-          </a>
-        </div> -->
     </div>
+    <h4 style="color: white;">Type2</h4>
+
+    <div class="done-container column-container">
+      <div class="list" cdkDropList #doneList="cdkDropList" [cdkDropListData]="posts"
+        [cdkDropListConnectedTo]="todoList" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
+        <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
+          <div class="row">
+            <div class="ui link cards example-card col-sm-6 col-md-4 col-lg-3" *ngFor="let post of posts" cdkDrag>
+              <div class="card task-card">
+                <div class="content">
+                  <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
+                  <div class="card-header-actions right floated badge">
+                    <span [ngClass]="{
+                        'badge-notstarted': post.status == 'NotStarted',
+                        'badge-completed': post.status === 'Completed',
+                        'badge-inprogress': post.status === 'In Progress'
+                      }">1</span>
+                  </div>
+                  <div class="header">
+                    {{ post.userName }}
+                  </div>
+                  <div class="meta">
+                    {{ post.title }}
+                  </div>
+                  <div class="meta">
+                    {{ post.time }}
+                  </div>
+                  <div class="description display-flex justify-flex-end">
+                    {{ post.content }}
+                  </div>
+                </div>
+                <div class="extra content right floated ui">
+                  <div class="mini ui two buttons">
+                    <div class="ui basic green button" [routerLink]="['/posts/edit', post.id]">
+                      <i class="icon edit"></i>Edit
+                    </div>
+                    <div class="ui basic red button" (click)="onDelete(post.id)">
+                      <i class="icon trash">&nbsp; Delete</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
-
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
   No posts added yet!
 </p>
@@ -110,3 +110,38 @@
 <div>
   <app-paginator></app-paginator>
 </div>
+
+  <div [ngClass]="
+showModal
+  ? 'ui active modal scale animate__animated animate__backInUp'
+  : 'ui modal animate__animated animate__backOutDown'
+" class="ui modal">
+    
+    <div class="new-group-box">
+      <i class="close icon" (click)="close()"></i>
+    <div class="header">
+      Create New Group
+    </div>
+
+    <form (submit)="createGroup(createGroupForm)" #createGroupForm="ngForm" *ngIf="!isLoading">
+      <div class="description new-group">
+        <p class="text-muted">Provide name for new Group.</p>
+        <div class="ui corner labeled input">
+          <input name="groupName" ngModel type="text" placeholder="Input..." #groupName="ngModel" required />
+          <div class="ui corner label">
+            <i class="pencil icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="ui red deny button small" (click)="close()">
+          Cancel
+        </div>
+        <div class="ui positive icon button small" (click)="createGroup(groupName)">
+          Create
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>

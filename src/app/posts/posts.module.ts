@@ -9,7 +9,7 @@ import { MyProfileComponent } from "./my-profile/my-profile.component";
 import { AngularMaterialModule } from "../angular-material.module";
 import { PostsRoutingModule } from "./posts-routing.module";
 import { PaginatorComponent } from "./paginator/paginator.component";
-
+import {DragDropModule} from '@angular/cdk/drag-drop'
 @NgModule({
   declarations: [
     PostCreateComponent,
@@ -24,6 +24,7 @@ import { PaginatorComponent } from "./paginator/paginator.component";
     RouterModule,
     PostsRoutingModule,
     FormsModule,
+    DragDropModule,
   ],
 })
 export class PostsModule {}

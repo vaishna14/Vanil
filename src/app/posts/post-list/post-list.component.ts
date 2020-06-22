@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
-
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
+import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
+
 @Component({
   selector: "app-post-list",
   templateUrl: "./post-list.component.html",
@@ -23,7 +25,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   private postsSub: Subscription;
   private authStatusSub: Subscription;
   showShare: boolean;
-
+  showModal:boolean;
+  form: NgForm;
+  
   constructor(
     public postsService: PostsService,
     private authService: AuthService
@@ -40,7 +44,6 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
-        console.log(this.posts);
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -49,11 +52,11 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
         this.userName = this.authService.getUserName();
+        
       });
-  }
-
-  shareButton() {
-    this.showShare = true;
+      this.postsService.getGroup(this.userId).subscribe(data=>{console.log(data);
+      })
+      
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -74,15 +77,46 @@ export class PostListComponent implements OnInit, OnDestroy {
       }
     );
   }
-  onLike(postId: string) {
-    console.log(postId);
-    this.postsService.likePost(postId).subscribe(() => {
-      this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    });
-  }
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();
     this.authStatusSub.unsubscribe();
   }
+
+  addGroup(){
+    this.showModal= true;
+    console.log(this.showModal);
+  }
+
+  close(){
+    this.showModal=false;
+  }
+
+  createGroup(groupName){
+    console.log(groupName.value);
+    this.postsService.addGroup(groupName.value, this.userId).subscribe(data=>{
+      this.showModal = false;
+    });
+    groupName="";
+  }
+  todos = this.posts;
+  completed = this.posts;
+  onDrop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+        
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex, event.currentIndex);
+        console.log("event.container.data "+event.container.data);
+        console.log("event.previousIndex "+event.previousIndex);
+        console.log("event.currentIndex "+event.currentIndex);
+    }
+  }
+
+
+
 }

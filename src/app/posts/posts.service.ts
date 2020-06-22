@@ -65,6 +65,14 @@ export class PostsService {
     }>(BACKEND_URL + id);
   }
 
+  addGroup(groupName:string, userId: string){
+    const groupName2= {groupName:groupName,userId:userId};
+    return this.http.post(BACKEND_URL + "groupName", groupName2).pipe(map((response:Response)=>response));
+  }
+  getGroup(userId: string){
+    return this.http.get(BACKEND_URL + "groupName/"+userId);
+  }
+
   addPost(title: string, content: string, time: string, status: string) {
     const postData = new FormData();
     postData.append("title", title);
@@ -77,7 +85,9 @@ export class PostsService {
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
         this.router.navigate(["/posts/home"]);
+        
       });
+       
   }
 
   updatePost(

@@ -1,5 +1,6 @@
 const Post = require("../models/post");
-const User = require("../models/user")
+const User = require("../models/user");
+const Group = require('../models/group');
 
 exports.createPost = async (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
@@ -205,6 +206,54 @@ exports.likePost = (req, res, next) => {
       });
     });
 
+};
+
+
+exports.getGroup = (req, res, next) => {
+  console.log(req.params.id);
+  
+  Group.find({userCreated: req.params.id}).then(post => {
+    if (post) {
+      res.status(200).json({post:post, message: "Group Fetched!" });
+    } else {
+      res.status(404).json({ message: "Group Fetched failed!" });
+    }
+  })
+    .catch(error => {
+      console.log(error);      
+      res.status(500).json({
+        message: "Getting group failed!"
+      });
+    });
+
+};
+
+
+
+
+exports.addGroup = (req, res, next) => {
+  const group = new Group({
+    groupList:req.body.groupName,
+    userCreated:req.body.userId
+  })
+  group.save().then(createdPost => {
+    console.log(createdPost);
+    
+    res.status(201).json({
+      message: "Group created successfully",
+      post: {
+        ...createdPost,
+        id: createdPost._id
+      },
+      statusValue:true
+    });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Creating a Group failed!",
+      statusValue:false
+    });
+  });
 };
 
 

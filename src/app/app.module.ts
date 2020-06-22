@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ChartsModule } from "ng2-charts";
-
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -17,7 +17,7 @@ import { AngularMaterialModule } from "./angular-material.module";
 import { EditMyprofileComponent } from "./posts/edit-myprofile/edit-myprofile.component";
 import { TeamComponent } from "./Teams/team/team.component";
 import { TeamDetailsComponent } from "./Teams/team-details/team-details.component";
-
+import {DragDropModule} from '@angular/cdk/drag-drop'
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,8 @@ import { TeamDetailsComponent } from "./Teams/team-details/team-details.componen
     HttpClientModule,
     AngularMaterialModule,
     ChartsModule,
-
+    NgxDropzoneModule,
+    DragDropModule
     // PostsModule,
     // LayOutModule,
   ],
