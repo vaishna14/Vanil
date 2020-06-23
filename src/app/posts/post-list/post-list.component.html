@@ -7,7 +7,7 @@
     </button>
    
   </div>
-  <div class="list-container" *ngFor="let group of groupList">
+  <div class="list-container" *ngFor="let group of groupList" >
     <div class="display-flex justify-space-between">
     <h4 style="color: white;" >{{group.groupList}}</h4>
     <button style="margin-bottom: 1%;" class="ui mini icon button" (click)="deleteGroup(group.groupList)">
@@ -19,7 +19,7 @@
         [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
         <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
           <div class="row">
-            <div class="ui link cards example-card col-sm-6 col-md-4 col-lg-3" *ngFor="let post of posts" cdkDrag>
+            <div class="ui link cards example-card " *ngFor="let post of posts" cdkDrag>
               <div class="card task-card">
                 <div class="content">
                   <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
@@ -57,15 +57,16 @@
             </div>
           </div>
         </div>
+        <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+          No tasks added yet!
+        </p>
       </div>
     </div>
     
 
   </div>
 </div>
-<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
-  No posts added yet!
-</p>
+
 
 <div>
   <app-paginator></app-paginator>

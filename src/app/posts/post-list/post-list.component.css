@@ -9,6 +9,9 @@ mat-spinner {
 
 .info-text {
   text-align: center;
+  border: none !important;
+  color: white;
+  margin: auto;
 }
 
 .ui.card.example-card {
@@ -46,6 +49,9 @@ body {
 
 .posts-list {
   padding: 0% 3% 3% 3%;
+  border-radius: 2px;
+  display: flex;
+  margin: auto;
 }
 .mat-select-value {
   color: white !important;
@@ -146,11 +152,13 @@ h2 {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 2em;
-
+  border: dotted 2px white;
+  padding: 2%;
+  width: 100%;
 }
 
 .column-container {
-  max-width: 100%;
+  width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
   vertical-align: top;
@@ -169,8 +177,8 @@ mat-card {
 }
 
 .list {
-  border: white dotted 2px;
-  border-radius: 2px;
+  /* border: white dotted 2px;
+  border-radius: 2px; */
   display: flex;
 }
 
