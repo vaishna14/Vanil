@@ -30,7 +30,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   showModal:boolean;
   form: NgForm;
   groupList=[];
+  checkList=[];
   action:string;
+  type1List=[];
+  type2List=[];
   
   constructor(
     public postsService: PostsService,
@@ -59,22 +62,26 @@ export class PostListComponent implements OnInit, OnDestroy {
         
       });
       this.postsService.getGroup(this.userId).subscribe(data=>{
-      this.groupList = (Object.values(data))[0]; 
-      
+      this.groupList = (Object.values(data))[0];      
           this.sort();
       })
       
   }
-sort= async()=>{
-  this.groupList.map(item=>{    
+  sort= async()=>{
+    
     this.posts.map((i,j)=>{
-      if (Object.values(i)[2] === item.groupList){
-        Array['Array' + item.groupList][1] = i;
-      }
-      console.log('Array' + item.groupList);
+      console.log(i);
       
-     })
-  });
+      if (Object.values(i)[2] === 'Type1'){
+        this.type1List.push(i);   
+        console.log(i);
+        console.log(Object.values(i)[2]);
+        
+            
+      }else if (Object.values(i)[2] === 'Type2') {
+        this.type2List.push(i);
+      }
+     }) 
   
 }
   onChangedPage(pageData: PageEvent) {
@@ -138,8 +145,8 @@ sort= async()=>{
   }
 
   // Drag and Drop 
-  todos = this.posts;
-  completed = this.posts;
+  todos = this.type1List;
+  completed = this.type2List;
   onDrop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data,

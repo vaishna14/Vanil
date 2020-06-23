@@ -7,20 +7,78 @@
     </button>
    
   </div>
-  <div class="list-container" *ngFor="let group of groupList" >
+  <div class="list-container"  >
     <div class="display-flex justify-space-between">
-    <h4 style="color: white;" >{{group.groupList}}</h4>
+    <h4 style="color: white;" >Type1</h4>
     <button style="margin-bottom: 1%;" class="ui mini icon button" (click)="deleteGroup(group.groupList)">
       <i class="trash icon"></i>
     </button>
     </div>
     <div class="todo-container column-container">
-      <div class="list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="posts"
+      <div class="list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="type1List"
         [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
-        <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
+        <div *ngIf="type1List.length > 0 && !isLoading" class="posts-list">
           <div class="row">
-            <div class="ui link cards example-card " *ngFor="let post of posts" cdkDrag>
-              <div class="card task-card">
+            <div class="ui link cards example-card " *ngFor="let post of type1List" cdkDrag>
+              <div class="card task-card" *ngIf="post.groupName === 'Type1'">
+                <div class="content">
+                  <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
+                  <div class="card-header-actions right floated badge">
+                    <span [ngClass]="{
+                'badge-notstarted': post.status == 'NotStarted',
+                'badge-completed': post.status === 'Completed',
+                'badge-inprogress': post.status === 'In Progress'
+              }">1</span>
+                  </div>
+                  <div class="header">
+                    {{ post.userName }}
+                  </div>
+                  <div class="meta">
+                    {{ post.title }}
+                  </div>
+                  <div class="meta">
+                    {{ post.time }}
+                  </div>
+                  <div class="description display-flex justify-flex-end">
+                    {{ post.content }}
+                  </div>
+                </div>
+                <div class="extra content right floated ui">
+                  <div class="mini ui two buttons">
+                    <div class="ui basic green button" [routerLink]="['/posts/edit', post.id]">
+                      <i class="icon edit"></i>Edit
+                    </div>
+                    <div class="ui basic red button" (click)="onDelete(post.id)">
+                      <i class="icon trash">&nbsp; Delete</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+          No tasks added yet!
+        </p>
+      </div>
+    </div>
+    
+
+  </div>
+  <div class="list-container"  >
+    <div class="display-flex justify-space-between">
+    <h4 style="color: white;" >Type2</h4>
+    <button style="margin-bottom: 1%;" class="ui mini icon button" (click)="deleteGroup(group.groupList)">
+      <i class="trash icon"></i>
+    </button>
+    </div>
+    <div class="todo-container column-container">
+      <div class="list" cdkDropList #doneList="cdkDropList" [cdkDropListData]="type2List"
+        [cdkDropListConnectedTo]="[todoList]" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
+        <div *ngIf="type2List.length > 0 && !isLoading" class="posts-list">
+          <div class="row">
+            <div class="ui link cards example-card " *ngFor="let post of type2List" cdkDrag>
+              <div class="card task-card" *ngIf="post.groupName === 'Type2'">
                 <div class="content">
                   <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
                   <div class="card-header-actions right floated badge">
