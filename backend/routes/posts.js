@@ -20,6 +20,7 @@ router.delete("/:id", checkAuth, PostController.deletePost);
 router.get("/like/:id", PostController.likePost);
 router.post("/groupName", PostController.addGroup);
 router.get("/groupName/:id", PostController.getGroup);
+router.delete("/groupName/:groupName/:userId", PostController.deleteGroup);
 
 
 module.exports = router;

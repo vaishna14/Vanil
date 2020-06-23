@@ -6,6 +6,7 @@ import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
 import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
+import { post } from "jquery";
 
 @Component({
   selector: "app-post-list",
@@ -27,6 +28,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   showShare: boolean;
   showModal:boolean;
   form: NgForm;
+  groupList=[];
+  action:string;
   
   constructor(
     public postsService: PostsService,
@@ -54,7 +57,10 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userName = this.authService.getUserName();
         
       });
-      this.postsService.getGroup(this.userId).subscribe(data=>{console.log(data);
+      this.postsService.getGroup(this.userId).subscribe(data=>{
+      this.groupList = (Object.values(data))[0]; 
+      console.log(this.groupList);
+          
       })
       
   }
@@ -83,9 +89,17 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 
-  addGroup(){
+  addGroup(condition){
+    console.log(condition);
+    
+    if (condition ==="Create"){
     this.showModal= true;
+    this.action = condition;
     console.log(this.showModal);
+    }else if (condition === "Delete"){
+      this.showModal= true;
+    this.action = condition;
+    }
   }
 
   close(){
@@ -96,9 +110,23 @@ export class PostListComponent implements OnInit, OnDestroy {
     console.log(groupName.value);
     this.postsService.addGroup(groupName.value, this.userId).subscribe(data=>{
       this.showModal = false;
+      this.postsService.getGroup(this.userId).subscribe(data=>{
+        this.groupList = (Object.values(data))[0]; 
+      })
     });
     groupName="";
+    this.ngOnInit();
   }
+  deleteGroup(groupName){
+    console.log(groupName);
+    this.postsService.deleteGroup(groupName, this.userId).subscribe(data=>{
+      this.postsService.getGroup(this.userId).subscribe(data=>{
+        this.groupList = (Object.values(data))[0]; 
+    });
+  })
+  }
+
+  // Drag and Drop 
   todos = this.posts;
   completed = this.posts;
   onDrop(event: CdkDragDrop<string[]>) {

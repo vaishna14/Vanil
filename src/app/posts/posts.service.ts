@@ -89,6 +89,10 @@ export class PostsService {
       });
        
   }
+  deleteGroup(groupName:string,userId:string){
+    let groupName2 = {groupName:groupName, userId:userId}
+    return this.http.delete(BACKEND_URL +"groupName/"+groupName+"/"+userId)
+  }
 
   updatePost(
     id: string,

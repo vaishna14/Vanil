@@ -16,7 +16,6 @@ exports.createPost = async (req, res, next) => {
       InprogressDate: null,
       CompletedDate: null
     });
-    console.log(post)
     post
       .save()
       .then(createdPost => {
@@ -57,7 +56,6 @@ exports.updatePost = (req, res, next) => {
           creator: req.userData.userId,
           InprogressDate: new Date()
         });
-        console.log(post)
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
           .then(result => {
             if (result.n > 0) {
@@ -67,7 +65,6 @@ exports.updatePost = (req, res, next) => {
             }
           })
           .catch(error => {
-            console.log(error)
             res.status(500).json({
               message: "Couldn't udpate post!"
             });
@@ -83,7 +80,6 @@ exports.updatePost = (req, res, next) => {
           creator: req.userData.userId,
           CompletedDate: new Date()
         });
-        console.log(post)
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
           .then(result => {
             if (result.n > 0) {
@@ -93,7 +89,6 @@ exports.updatePost = (req, res, next) => {
             }
           })
           .catch(error => {
-            console.log(error)
             res.status(500).json({
               message: "Couldn't udpate post!"
             });
@@ -108,7 +103,7 @@ exports.updatePost = (req, res, next) => {
           status: req.body.status,
           creator: req.userData.userId,
         });
-        console.log(post)
+     
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
           .then(result => {
             if (result.n > 0) {
@@ -118,7 +113,6 @@ exports.updatePost = (req, res, next) => {
             }
           })
           .catch(error => {
-            console.log(error)
             res.status(500).json({
               message: "Couldn't udpate post!"
             });
@@ -175,7 +169,6 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  console.log("hi")
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
       if (result.n > 0) {
@@ -192,7 +185,6 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.likePost = (req, res, next) => {
-  console.log(req.params)
   Post.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } }).then(post => {
     if (post) {
       res.status(200).json(post);
@@ -210,7 +202,6 @@ exports.likePost = (req, res, next) => {
 
 
 exports.getGroup = (req, res, next) => {
-  console.log(req.params.id);
   
   Group.find({userCreated: req.params.id}).then(post => {
     if (post) {
@@ -219,8 +210,7 @@ exports.getGroup = (req, res, next) => {
       res.status(404).json({ message: "Group Fetched failed!" });
     }
   })
-    .catch(error => {
-      console.log(error);      
+    .catch(error => {    
       res.status(500).json({
         message: "Getting group failed!"
       });
@@ -228,16 +218,12 @@ exports.getGroup = (req, res, next) => {
 
 };
 
-
-
-
 exports.addGroup = (req, res, next) => {
   const group = new Group({
     groupList:req.body.groupName,
     userCreated:req.body.userId
   })
   group.save().then(createdPost => {
-    console.log(createdPost);
     
     res.status(201).json({
       message: "Group created successfully",
@@ -255,10 +241,27 @@ exports.addGroup = (req, res, next) => {
     });
   });
 };
+exports.deleteGroup = (req, res, next) => {
+  Group.deleteOne({ userCreated: req.params.userId, groupList: req.params.groupName })
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "Deletion successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Deleting posts failed!"
+      });
+    });
+  
+  
+  
+};
 
 
 exports.barChart = (req, res, next) => {
-  console.log(req.params)
   Post.find().sort([['_id', -1]]).then(post => {
     if (post) {
       res.status(200).json(post);

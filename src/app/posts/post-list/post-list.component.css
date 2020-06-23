@@ -229,15 +229,9 @@ a {
 }
 
 .ui.modal.active.scale.animate__animated.animate__backInUp{
-  /* width: 50%;
-  height: 40%;
-  margin-left: 10%; */
   padding-top: 5%;
-  /* background-color:#ffffff4a ; */
-  background-color:transparent ;
   width: 100%;
-  
-    background-color: #ded5d578;
+    background-color: #ded5d5db;
 }
 .description.new-group{
   height: auto;
