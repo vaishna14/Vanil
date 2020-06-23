@@ -53,6 +53,19 @@
         <mat-option value="Completed">Completed</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select a Group</mat-label>
+      <mat-select
+        [ngModel]="post?.groupName"
+        name="groupName"
+        #groupName="ngModel"
+        required
+        [(value)]="groupSelected"
+      >
+      <mat-option value="Other" selected>Other</mat-option>
+      <mat-option *ngFor="let group of groupList" value={{group.groupList}}>{{group.groupList}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <!-- <div class="pick-image">
       <button mat-stroked-button type="button" (click)="filePicker.click()">

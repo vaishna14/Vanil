@@ -5,4 +5,5 @@ export interface Post {
   status: string;
   creator: string;
   time: string;
+  groupName:string;
 }

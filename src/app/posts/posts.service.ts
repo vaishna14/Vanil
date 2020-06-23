@@ -29,11 +29,13 @@ export class PostsService {
               return {
                 title: post.title,
                 content: post.content,
+                groupName:post.groupName,
                 id: post._id,
                 time: post.time,
                 creator: post.creator,
                 userName: post.userName,
                 status: post.status,
+                
               };
             }),
             maxPosts: postData.maxPosts,
@@ -62,6 +64,7 @@ export class PostsService {
       creator: string;
       userName: string;
       status: string;
+      groupName:string;
     }>(BACKEND_URL + id);
   }
 
@@ -73,13 +76,14 @@ export class PostsService {
     return this.http.get(BACKEND_URL + "groupName/"+userId);
   }
 
-  addPost(title: string, content: string, time: string, status: string) {
+  addPost(title: string, content: string, time: string, status: string,groupName:string) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
     postData.append("time", time);
     postData.append("status", status);
-    console.log(status);
+    postData.append("groupName", groupName);
+    console.log(groupName);
     console.log(postData);
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
@@ -99,10 +103,11 @@ export class PostsService {
     title: string,
     content: string,
     time: string,
-    status: string
+    status: string,
+    groupName:string
   ) {
     let postData: Post | FormData;
-
+    console.log(groupName)
     postData = {
       id: id,
       title: title,
@@ -110,6 +115,7 @@ export class PostsService {
       time: time,
       creator: null,
       status: status,
+      groupName:groupName
     };
     console.log(postData);
     this.http.put(BACKEND_URL + id, postData).subscribe((response) => {

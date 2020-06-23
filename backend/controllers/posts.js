@@ -4,6 +4,8 @@ const Group = require('../models/group');
 
 exports.createPost = async (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
+  console.log(req.body);
+  
   User.findById(req.userData.userId).then(response => {
     const post = new Post({
       title: req.body.title,
@@ -12,6 +14,7 @@ exports.createPost = async (req, res, next) => {
       status: req.body.status,
       creator: req.userData.userId,
       userName: response.userName,
+      groupName:req.body.groupName,
       createdDate: new Date(),
       InprogressDate: null,
       CompletedDate: null
@@ -42,7 +45,7 @@ exports.updatePost = (req, res, next) => {
     imagePath = url + "/images/" + req.file.filename;
   }
 
-
+  console.log(req.body);
   Post.findOne({ _id: req.params.id, creator: req.userData.userId }).then(exist_post => {
 
     if (exist_post) {
@@ -54,7 +57,8 @@ exports.updatePost = (req, res, next) => {
           time: req.body.time,
           status: req.body.status,
           creator: req.userData.userId,
-          InprogressDate: new Date()
+          InprogressDate: new Date(),
+          groupName:req.body.groupName,
         });
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
           .then(result => {
@@ -78,7 +82,8 @@ exports.updatePost = (req, res, next) => {
           time: req.body.time,
           status: req.body.status,
           creator: req.userData.userId,
-          CompletedDate: new Date()
+          CompletedDate: new Date(),
+          groupName:req.body.groupName,
         });
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
           .then(result => {
@@ -102,6 +107,7 @@ exports.updatePost = (req, res, next) => {
           time: req.body.time,
           status: req.body.status,
           creator: req.userData.userId,
+          groupName:req.body.groupName,
         });
      
         Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)

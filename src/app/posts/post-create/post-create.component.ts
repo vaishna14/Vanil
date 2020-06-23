@@ -23,6 +23,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   private postId: string;
   private authStatusSub: Subscription;
   selected = "NotStarted";
+  groupList=[];
+  userId: string;
+  userName: string;
+  userIsAuthenticated = false;
+  groupSelected:"Other";
 
   constructor(
     public postsService: PostsService,
@@ -31,24 +36,20 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.userId = this.authService.getUserId();
+    this.userName = this.authService.getUserName();
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
-      .subscribe((authStatus) => {
-        this.isLoading = false;
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+        this.userName = this.authService.getUserName();
       });
-    // this.form = new FormGroup({
-    //   title: new FormControl(null, {
-    //     validators: [Validators.required, Validators.minLength(3)],
-    //   }),
-    //   content: new FormControl(null, { validators: [Validators.required] }),
-    //   time: new FormControl(null, { validators: [Validators.required] }),
-    //   status: new FormControl(null, { validators: [Validators.required] }),
-    //   // image: new FormControl(null, {
-    //   //   validators: [Validators.required],
-    //   //   asyncValidators: [mimeType],
-    //   // }),
-    //   // likes: new FormControl(null, null),
-    // });
+      this.postsService.getGroup(this.userId).subscribe(data=>{
+      this.groupList = (Object.values(data))[0];  
+      })
+    
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
@@ -62,22 +63,25 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: postData.title,
             content: postData.content,
             time: postData.time,
-            creator: postData.creator,
             status: postData.status,
+            groupName: postData.groupName,
+            creator: postData.creator,
           };
           this.form.setValue({
             title: this.post.title,
             content: this.post.content,
             time: this.post.time,
             status: this.post.status,
+            groupName:this.post.groupName
           });
         });
       } else {
         this.mode = "create";
         this.postId = null;
       }
-      console.log(this.mode);
+      
     });
+
   }
 
   // onImagePicked(event: Event) {
@@ -102,7 +106,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         form.value.title,
         form.value.description,
         form.value.time,
-        form.value.status
+        form.value.status,
+        form.value.groupName,
       );
     } else {
       this.postsService.updatePost(
@@ -110,7 +115,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         form.value.title,
         form.value.description,
         form.value.time,
-        form.value.status
+        form.value.status,
+        form.value.groupName
       );
     }
     form.reset();

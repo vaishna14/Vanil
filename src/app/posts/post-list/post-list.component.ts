@@ -7,6 +7,7 @@ import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
 import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
 import { post } from "jquery";
+import { async } from "@angular/core/testing";
 
 @Component({
   selector: "app-post-list",
@@ -59,12 +60,23 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
       this.postsService.getGroup(this.userId).subscribe(data=>{
       this.groupList = (Object.values(data))[0]; 
-      console.log(this.groupList);
-          
+      
+          this.sort();
       })
       
   }
-
+sort= async()=>{
+  this.groupList.map(item=>{    
+    this.posts.map((i,j)=>{
+      if (Object.values(i)[2] === item.groupList){
+        Array['Array' + item.groupList][1] = i;
+      }
+      console.log('Array' + item.groupList);
+      
+     })
+  });
+  
+}
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
@@ -91,7 +103,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   addGroup(condition){
     console.log(condition);
-    
     if (condition ==="Create"){
     this.showModal= true;
     this.action = condition;
