@@ -42,74 +42,23 @@ exports.updatePost = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     imagePath = url + "/images/" + req.file.filename;
   }
-
-  console.log(req.body);
-  Post.findOne({ _id: req.params.id, creator: req.userData.userId }).then(exist_post => {
-
+ 
+  User.findOne({ _id: req.body.id }).then(exist_post => {
+    
     if (exist_post) {
-      if (req.body.status === "In Progress") {
         const post = new Post({
           _id: req.body.id,
-          title: req.body.title,
-          content: req.body.content,
-          time: req.body.time,
-          status: req.body.status,
-          creator: req.userData.userId,
-          InprogressDate: new Date(),
-          groupName:req.body.groupName,
-        });
-        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
-          .then(result => {
-            if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!" });
-            } else {
-              res.status(401).json({ message: "Not authorized!" });
-            }
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: "Couldn't udpate post!"
-            });
-          });
-      }
-      else if (req.body.status === "Completed") {
-        const post = new Post({
-          _id: req.body.id,
-          title: req.body.title,
-          content: req.body.content,
-          time: req.body.time,
-          status: req.body.status,
-          creator: req.userData.userId,
-          CompletedDate: new Date(),
-          groupName:req.body.groupName,
-        });
-        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
-          .then(result => {
-            if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!" });
-            } else {
-              res.status(401).json({ message: "Not authorized!" });
-            }
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: "Couldn't udpate post!"
-            });
-          });
-      }
-      else {
-        const post = new Post({
-          _id: req.body.id,
-          title: req.body.title,
-          content: req.body.content,
-          time: req.body.time,
-          status: req.body.status,
-          creator: req.userData.userId,
+          lastName: req.body.lastName,
+          firstName: req.body.firstName,
+          contact: req.body.contact,
+          userName: req.body.userName,
+          email: req.body.email,
           groupName:req.body.groupName,
         });
      
-        Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+        User.updateOne({ _id: req.params.id, }, post)
           .then(result => {
+            
             if (result.n > 0) {
               res.status(200).json({ message: "Update successful!" });
             } else {
@@ -117,17 +66,15 @@ exports.updatePost = (req, res, next) => {
             }
           })
           .catch(error => {
+           
             res.status(500).json({
               message: "Couldn't udpate post!"
             });
           });
       }
 
-    }
-  })
+    })}
 
-
-};
 
 exports.getPosts = (req, res, next) => {
   const pageSize = +req.query.pagesize;
@@ -152,11 +99,10 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.getPost = (req, res, next) => {
-  console.log(req.params.id);
+ 
   User.findById(req.params.id)
     .then(post => {
-      console.log(post);
-      
+  
       if (post) {
         res.status(200).json(post);
       } else {
@@ -205,7 +151,7 @@ exports.likePost = (req, res, next) => {
 
 exports.getGroup = (req, res, next) => {
   
-  Group.find({userCreated: req.params.id}).sort([['_id', -1]]).then(post => {
+  Group.find({userCreated: req.params.id}).sort([['_id', -1]]).then(post => {    
     if (post) {
       res.status(200).json({post:post, message: "Group Fetched!" });
     } else {

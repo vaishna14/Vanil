@@ -25,6 +25,7 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
   tasks:[];
   groupName:string;
   Name:string;
+  id:string;
 
   constructor(
     public route: ActivatedRoute,
@@ -45,13 +46,12 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
       });
       this.postsService.getGroup(this.userId).subscribe(data=>{
       this.groupList = (Object.values(data))[0];  
+      console.log((data));
+      
       })
     
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      console.log("hi");
-      if (paramMap.has("postId")) {
-        
-        
+      if (paramMap.has("postId")) {   
         this.mode = "edit";
         this.postId = paramMap.get("postId");
         this.isLoading = true;
@@ -60,6 +60,7 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
           this.Name = postData.userName
           this.groupName = postData.groupName
           this.tasks = postData.tasks
+          this.id = postData._id
           // console.log(postData);
           // this.post = {
           //   id: postData._id,
@@ -85,6 +86,11 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
       }
       
     });
+  }
+  UpdateDetails(){
+    // this.groupName = (event.target as HTMLSelectElement).value;
+    console.log(this.groupName);
+    this.postsService.updatePost(this.id, this.Name,this.tasks,this.groupName)
   }
   ngOnChanges() {
     this.userName = this.authService.getUserName();

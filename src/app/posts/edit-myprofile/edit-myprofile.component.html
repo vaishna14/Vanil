@@ -10,7 +10,7 @@
       
       <mat-label>Update Group</mat-label>
       <mat-select
-      [(value)]="groupName"
+      [(value)]="groupName" 
       >
       <mat-option value="Other" selected>Other</mat-option>
       <mat-option *ngFor="let group of groupList" value={{group.groupList}}>{{group.groupList}}</mat-option>
