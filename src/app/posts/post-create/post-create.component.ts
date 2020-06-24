@@ -63,19 +63,16 @@ export class PostCreateComponent implements OnInit, OnDestroy {
           console.log(postData);
           this.post = {
             id: postData._id,
-            title: postData.title,
-            content: postData.content,
-            time: postData.time,
-            status: postData.status,
-            groupName: postData.groupName,
-            creator: postData.creator,
+            userName: postData.userName,
+            tasks: postData.tasks,
+            groupName:postData.groupName
           };
           this.form.setValue({
-            title: this.post.title,
-            content: this.post.content,
-            time: this.post.time,
-            status: this.post.status,
-            groupName:this.post.groupName
+            userName: this.post.userName,
+            tasks: this.post.tasks,
+            // time: this.post.time,
+            // status: this.post.status,
+            // groupName:this.post.groupName
           });
         });
       } else {
@@ -117,8 +114,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.postId,
         form.value.title,
         form.value.description,
-        form.value.time,
-        form.value.status,
+        // form.value.time,
+        // form.value.status,
         form.value.groupName
       );
     }

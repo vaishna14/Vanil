@@ -1,1 +1,148 @@
-<p>edit-myprofile works!</p>
+<mat-card class="post-create">
+  <mat-card-header>
+    <img mat-card-avatar class="example-header-image" src="../../../assets/kristy.png">
+    <div class="edit-myprofile">
+      <div>
+    <mat-card-title>{{Name}}</mat-card-title>
+    </div>
+    <div>
+    <mat-card-subtitle>
+      
+      <mat-label>Update Group</mat-label>
+      <mat-select
+      [(value)]="groupName"
+      >
+      <mat-option value="Other" selected>Other</mat-option>
+      <mat-option *ngFor="let group of groupList" value={{group.groupList}}>{{group.groupList}}</mat-option>
+      </mat-select>
+    </mat-card-subtitle>
+    </div>
+  
+  <div>
+    <button mat-raised-button (click)="UpdateDetails()" color="accent">Update</button>
+  </div>
+</div>
+  </mat-card-header>
+  <!-- <img mat-card-image src="../../../assets/kristy.png" alt="Photo of a Shiba Inu"> -->
+  <mat-card-content>
+    <table
+    [ngClass]="
+      click
+        ? 'animate__animated animate__flash table table-hover'
+        : 'table table-hover'
+    "
+  >
+  <thead>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Time</th>
+    <th>Status</th>
+  </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{task.title}}</td>
+        <td>{{task.content}}</td>
+        <td>{{task.time}}</td>
+        <td>{{task.status}}</td>
+      </tr>
+
+      <!-- <tr>
+        <td><i class="fas fa-pencil-alt"></i></td>
+        <td (keyup)="change('firstName', $event)" contenteditable="true">
+          {{ firstName }}
+        </td>
+      </tr>
+      <tr>
+        <td>Description<i class="fas fa-pencil-alt"></i></td>
+        <td (keyup)="change('lastName', $event)" contenteditable="true">
+          {{ lastName }}
+        </td>
+      </tr>
+      <tr>
+        <td>Time</td>
+        <td (keyup)="change('userName', $event)" contenteditable="false">
+          {{ userName }}
+        </td>
+      </tr>
+      <tr>
+        <td>Status<i class="fas fa-pencil-alt"></i></td>
+        <td (keyup)="change('contact', $event)" contenteditable="true">
+          {{ contact }}
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+  </mat-card-content>
+  <!-- <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions> -->
+</mat-card>
+
+
+
+<!-- <mat-card class="post-create">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-card-header>
+      <mat-card-title>{{userName}}</mat-card-title>
+      <mat-card-subtitle>{{groupName}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="../../../assets/kristy.pngPhoto of a Shiba Inu"> -->
+    <!-- <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+      <mat-form-field>
+        <input
+          matInput
+          name="description"
+          [ngModel]="post?.content"
+          type="text"
+          placeholder="Task description"
+          #description="ngModel"
+          required
+        />
+        <mat-error *ngIf="description.invalid"
+          >Please enter a valid description.</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="time"
+          [ngModel]="post?.time"
+          type="text"
+          placeholder="Task time"
+          #time="ngModel"
+          required
+        />
+        <mat-error *ngIf="time.invalid">Please enter a valid time.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select
+          [ngModel]="post?.status"
+          name="status"
+          #status="ngModel"
+          required
+          [(value)]="selected"
+        >
+          <mat-option value="NotStarted">Not Started</mat-option>
+          <mat-option value="In Progress">In Progress</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select a Group</mat-label>
+        <mat-select
+          [ngModel]="post?.groupName"
+          name="groupName"
+          #groupName="ngModel"
+          required
+          [(value)]="groupSelected"
+        >
+        <mat-option value="Other" selected>Other</mat-option>
+        <mat-option *ngFor="let group of groupList" value={{group.groupList}}>{{group.groupList}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit">Save Post</button>
+    </form> -->
+  <!-- </mat-card> -->
+  

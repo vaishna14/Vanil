@@ -9,13 +9,15 @@ import { MyProfileComponent } from "./my-profile/my-profile.component";
 import { AngularMaterialModule } from "../angular-material.module";
 import { PostsRoutingModule } from "./posts-routing.module";
 import { PaginatorComponent } from "./paginator/paginator.component";
-import {DragDropModule} from '@angular/cdk/drag-drop'
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {EditMyprofileComponent} from './edit-myprofile/edit-myprofile.component'
 @NgModule({
   declarations: [
     PostCreateComponent,
     PostListComponent,
     MyProfileComponent,
     PaginatorComponent,
+    EditMyprofileComponent,
   ],
   imports: [
     CommonModule,

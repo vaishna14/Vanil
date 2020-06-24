@@ -14,7 +14,6 @@ import { AngularMaterialModule } from "./angular-material.module";
 // import { PostsModule } from "./posts/posts.module";
 // import { LayOutModule } from "./LayoutComponent/layout.module";
 // import { MyProfileComponent } from "./LayoutComponent/my-profile/my-profile.component";
-import { EditMyprofileComponent } from "./posts/edit-myprofile/edit-myprofile.component";
 import { TeamComponent } from "./Teams/team/team.component";
 import { TeamDetailsComponent } from "./Teams/team-details/team-details.component";
 import {DragDropModule} from '@angular/cdk/drag-drop'
@@ -23,7 +22,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     AppComponent,
     HeaderComponent,
     ErrorComponent,
-    EditMyprofileComponent,
     TeamComponent,
     TeamDetailsComponent,
   ],

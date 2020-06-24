@@ -152,8 +152,11 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.getPost = (req, res, next) => {
-  Post.findById(req.params.id)
+  console.log(req.params.id);
+  User.findById(req.params.id)
     .then(post => {
+      console.log(post);
+      
       if (post) {
         res.status(200).json(post);
       } else {

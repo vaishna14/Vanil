@@ -58,13 +58,9 @@ export class PostsService {
   getPost(id: string) {
     return this.http.get<{
       _id: string;
-      title: string;
-      content: string;
-      time: string;
-      creator: string;
       userName: string;
-      status: string;
-      groupName:string;
+      tasks: [];
+      groupName:string
     }>(BACKEND_URL + id);
   }
 
@@ -100,21 +96,20 @@ export class PostsService {
 
   updatePost(
     id: string,
-    title: string,
-    content: string,
-    time: string,
-    status: string,
+    userName: string,
+    tasks: [],
+    // time: string,
+    // status: string,
     groupName:string
   ) {
     let postData: Post | FormData;
-    console.log(groupName)
     postData = {
       id: id,
-      title: title,
-      content: content,
-      time: time,
-      creator: null,
-      status: status,
+      userName: userName,
+      tasks: [],
+      // time: time,
+      // creator: null,
+      // status: status,
       groupName:groupName
     };
     console.log(postData);
