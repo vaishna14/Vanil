@@ -79,7 +79,7 @@ exports.updatePost = (req, res, next) => {
 exports.getPosts = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const postQuery = User.find({},{tasks:1,userName:1}).sort([['_id', -1]]);
+  const postQuery = User.find({},{tasks:1,userName:1,groupName:1}).sort([['_id', -1]]);
   let fetchedPosts;
   
   postQuery
@@ -88,6 +88,7 @@ exports.getPosts = (req, res, next) => {
       res.status(200).json({
         message: "Posts fetched successfully!",
         details: fetchedPosts,
+        
         // maxPosts: count
       });
     })

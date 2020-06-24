@@ -35,7 +35,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   action:string;
   type1List=[];
   type2List=[];
-  
+  Lists:any;
   constructor(
     public postsService: PostsService,
     private authService: AuthService,
@@ -45,19 +45,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage).subscribe(data=>
-      {this.posts = Object.values(data)[1]
-      console.log(this.posts);}
+      {this.posts = Object.values(data)[1];
+      
+      }
       
       );
+
     this.userId = this.authService.getUserId();
     this.userName = this.authService.getUserName();
-    // this.postsSub = this.postsService
-    //   .getPostUpdateListener()
-    //   .subscribe((postData: { posts: Post[]; postCount: number }) => {
-    //     this.isLoading = false;
-    //     this.totalPosts = postData.postCount;
-    //     // this.posts = postData.posts;
-    //   });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -67,28 +62,29 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userName = this.authService.getUserName();
         
       });
-      // this.postsService.getGroup(this.userId).subscribe(data=>{
-      // this.groupList = (Object.values(data))[0];      
-      //     this.sort();
-      // })
+      this.postsService.getGroup(this.userId).subscribe(data=>{
+      (Object.values(data))[0].map(item=>{
+          this.groupList.push(item.groupList)
+      }) 
+      console.log(this.groupList)     
+          this.sort();
+      })
       this.isLoading = false;
   }
-  sort= async()=>{
-    
+  sort=()=>{
+    let finalObj=[]
+    this.groupList.map((item,i)=>{
     this.posts.map((i,j)=>{
-      console.log(i);
-      
-      if (Object.values(i)[2] === 'Type1'){
-        this.type1List.push(i);   
-        console.log(i);
-        console.log(Object.values(i)[2]);
-        
-            
-      }else if (Object.values(i)[2] === 'Type2') {
-        this.type2List.push(i);
-      }
+      if (item == (Object.values(i)[3])){
+        finalObj[item]=[Object.values(i)]        
+      }        
+      })
+      return finalObj
      }) 
-  
+     
+     this.Lists=finalObj
+     console.log(this.Lists);
+     console.log(this.posts);
 }
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
@@ -115,11 +111,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   addGroup(condition){
-    console.log(condition);
     if (condition ==="Create"){
     this.showModal= true;
     this.action = condition;
-    console.log(this.showModal);
     }else if (condition === "Delete"){
       this.showModal= true;
     this.action = condition;
@@ -131,7 +125,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   createGroup(groupName){
-    console.log(groupName.value);
     this.postsService.addGroup(groupName.value, this.userId).subscribe(data=>{
       this.showModal = false;
       this.postsService.getGroup(this.userId).subscribe(data=>{
@@ -142,10 +135,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.ngOnInit();
   }
   deleteGroup(groupName){
-    console.log(groupName);
     this.postsService.deleteGroup(groupName, this.userId).subscribe(data=>{
       this.postsService.getGroup(this.userId).subscribe(data=>{
         this.groupList = (Object.values(data))[0]; 
+        
     });
   })
   }
