@@ -4,9 +4,8 @@ const Group = require('../models/group');
 
 exports.createPost = async (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
-  console.log(req.body);
   
-  User.findById(req.userData.userId).then(response => {
+  User.findById(req.userData.userId).then(response => {    
     const post = new Post({
       title: req.body.title,
       content: req.body.content,
@@ -19,8 +18,7 @@ exports.createPost = async (req, res, next) => {
       InprogressDate: null,
       CompletedDate: null
     });
-    post
-      .save()
+    User.update({_id:response.id},{$push:{tasks :post}})
       .then(createdPost => {
         res.status(201).json({
           message: "Post added successfully",
@@ -134,21 +132,16 @@ exports.updatePost = (req, res, next) => {
 exports.getPosts = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const postQuery = Post.find().sort([['_id', -1]]);
+  const postQuery = User.find({},{tasks:1,userName:1}).sort([['_id', -1]]);
   let fetchedPosts;
-  if (pageSize && currentPage) {
-    postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
+  
   postQuery
-    .then(documents => {
-      fetchedPosts = documents;
-      return Post.count();
-    })
-    .then(count => {
+    .then(documents => {     
+      fetchedPosts = documents;    
       res.status(200).json({
         message: "Posts fetched successfully!",
-        posts: fetchedPosts,
-        maxPosts: count
+        details: fetchedPosts,
+        // maxPosts: count
       });
     })
     .catch(error => {

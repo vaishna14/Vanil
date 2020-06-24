@@ -8,6 +8,7 @@ import { AuthService } from "../../auth/auth.service";
 import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
 import { post } from "jquery";
 import { async } from "@angular/core/testing";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-post-list",
@@ -37,21 +38,26 @@ export class PostListComponent implements OnInit, OnDestroy {
   
   constructor(
     public postsService: PostsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.postsService.getPosts(this.postsPerPage, this.currentPage).subscribe(data=>
+      {this.posts = Object.values(data)[1]
+      console.log(this.posts);}
+      
+      );
     this.userId = this.authService.getUserId();
     this.userName = this.authService.getUserName();
-    this.postsSub = this.postsService
-      .getPostUpdateListener()
-      .subscribe((postData: { posts: Post[]; postCount: number }) => {
-        this.isLoading = false;
-        this.totalPosts = postData.postCount;
-        this.posts = postData.posts;
-      });
+    // this.postsSub = this.postsService
+    //   .getPostUpdateListener()
+    //   .subscribe((postData: { posts: Post[]; postCount: number }) => {
+    //     this.isLoading = false;
+    //     this.totalPosts = postData.postCount;
+    //     // this.posts = postData.posts;
+    //   });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -61,11 +67,11 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userName = this.authService.getUserName();
         
       });
-      this.postsService.getGroup(this.userId).subscribe(data=>{
-      this.groupList = (Object.values(data))[0];      
-          this.sort();
-      })
-      
+      // this.postsService.getGroup(this.userId).subscribe(data=>{
+      // this.groupList = (Object.values(data))[0];      
+      //     this.sort();
+      // })
+      this.isLoading = false;
   }
   sort= async()=>{
     

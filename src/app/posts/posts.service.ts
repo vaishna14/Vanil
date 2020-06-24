@@ -18,37 +18,37 @@ export class PostsService {
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
-    this.http
+    return this.http
       .get<{ message: string; posts: any; maxPosts: number }>(
-        BACKEND_URL + queryParams
+        BACKEND_URL
       )
-      .pipe(
-        map((postData) => {
-          return {
-            posts: postData.posts.map((post) => {
-              return {
-                title: post.title,
-                content: post.content,
-                groupName:post.groupName,
-                id: post._id,
-                time: post.time,
-                creator: post.creator,
-                userName: post.userName,
-                status: post.status,
+      // .pipe(
+      //   map((postData) => {
+      //     return {
+      //       posts: postData.posts.map((post) => {
+      //         return {
+      //           title: post.title,
+      //           content: post.content,
+      //           groupName:post.groupName,
+      //           id: post._id,
+      //           time: post.time,
+      //           creator: post.creator,
+      //           userName: post.userName,
+      //           status: post.status,
                 
-              };
-            }),
-            maxPosts: postData.maxPosts,
-          };
-        })
-      )
-      .subscribe((transformedPostData) => {
-        this.posts = transformedPostData.posts;
-        this.postsUpdated.next({
-          posts: [...this.posts],
-          postCount: transformedPostData.maxPosts,
-        });
-      });
+      //         };
+      //       }),
+      //       maxPosts: postData.maxPosts,
+      //     };
+      //   })
+      // )
+      // .subscribe((transformedPostData) => {
+      //   this.posts = transformedPostData.posts;
+      //   this.postsUpdated.next({
+      //     posts: [...this.posts],
+      //     postCount: transformedPostData.maxPosts,
+      //   });
+      // });
   }
 
   getPostUpdateListener() {
@@ -98,30 +98,30 @@ export class PostsService {
     return this.http.delete(BACKEND_URL +"groupName/"+groupName+"/"+userId)
   }
 
-  updatePost(
-    id: string,
-    title: string,
-    content: string,
-    time: string,
-    status: string,
-    groupName:string
-  ) {
-    let postData: Post | FormData;
-    console.log(groupName)
-    postData = {
-      id: id,
-      title: title,
-      content: content,
-      time: time,
-      creator: null,
-      status: status,
-      groupName:groupName
-    };
-    console.log(postData);
-    this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
-      this.router.navigate(["/posts/home"]);
-    });
-  }
+  // updatePost(
+  //   id: string,
+  //   title: string,
+  //   content: string,
+  //   time: string,
+  //   status: string,
+  //   groupName:string
+  // ) {
+  //   let postData: Post | FormData;
+  //   console.log(groupName)
+  //   postData = {
+  //     id: id,
+  //     title: title,
+  //     content: content,
+  //     time: time,
+  //     creator: null,
+  //     status: status,
+  //     groupName:groupName
+  //   };
+  //   console.log(postData);
+  //   this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
+  //     this.router.navigate(["/posts/home"]);
+  //   });
+  // }
 
   deletePost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);

@@ -38,7 +38,8 @@ exports.createUser = (req, res, next) => {
           contact: req.body.contact,
           userName: req.body.userName,
           email: req.body.email,
-          password: hash
+          password: hash,
+          tasks:[]
         });
         user
           .save()
