@@ -1,5 +1,9 @@
 export interface Post {
-  _id:string;
-  userName:string;
-  tasks:[]
+  id: string;
+  title: string;
+  content: string;
+  status: string;
+  creator: string;
+  time: string;
+  groupName:string;
 }

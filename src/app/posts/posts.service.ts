@@ -98,30 +98,30 @@ export class PostsService {
     return this.http.delete(BACKEND_URL +"groupName/"+groupName+"/"+userId)
   }
 
-  // updatePost(
-  //   id: string,
-  //   title: string,
-  //   content: string,
-  //   time: string,
-  //   status: string,
-  //   groupName:string
-  // ) {
-  //   let postData: Post | FormData;
-  //   console.log(groupName)
-  //   postData = {
-  //     id: id,
-  //     title: title,
-  //     content: content,
-  //     time: time,
-  //     creator: null,
-  //     status: status,
-  //     groupName:groupName
-  //   };
-  //   console.log(postData);
-  //   this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
-  //     this.router.navigate(["/posts/home"]);
-  //   });
-  // }
+  updatePost(
+    id: string,
+    title: string,
+    content: string,
+    time: string,
+    status: string,
+    groupName:string
+  ) {
+    let postData: Post | FormData;
+    console.log(groupName)
+    postData = {
+      id: id,
+      title: title,
+      content: content,
+      time: time,
+      creator: null,
+      status: status,
+      groupName:groupName
+    };
+    console.log(postData);
+    this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
+      this.router.navigate(["/posts/home"]);
+    });
+  }
 
   deletePost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);

@@ -18,17 +18,81 @@
       <div class="list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="posts"
         [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal">
         <div *ngIf="posts.length > 0 && !isLoading" class="posts-list">
-          <div class="row">
-            <div class="ui link cards example-card " *ngFor="let post of posts" cdkDrag>
+                <div
+                  class="ui link cards example-card"
+                  *ngFor="let post of posts" cdkDrag
+                >
+                  <div class="card task-card">
+                    <div class="content">
+                      <img
+                        class="right floated mini ui image"
+                        src="../../../assets/elliot.jpg"
+                      />
+                      <div class="card-header-actions right floated badge">
+                        <span
+                          [ngClass]="{
+                            'badge-notstarted': post.status == 'NotStarted',
+                            'badge-completed': post.status === 'Completed',
+                            'badge-inprogress': post.status === 'In Progress'
+                          }"
+                          >{{ post.status }}</span
+                        >
+                      </div>
+                      <div class="header ">
+                        {{ post.userName }}
+                      </div>
+                      <table class="ui very basic collapsing celled table">
+                        <thead>
+                          <tr><th>Title</th>
+                          <th>Description</th>
+                          <th>Time</th>
+                          <th>Status</th>
+                        </tr></thead>
+                        <tbody>
+                          <tr *ngFor="let task of post.tasks">
+                            <td>
+                              <h4 class="ui image header">
+                                <div class="content">
+                                  {{task.title}}
+                              </div>
+                            </h4></td>
+                            <td>
+                              {{task.content}}
+                            </td>
+                            <td>
+                              {{task.time}}
+                            </td>
+                            <td>
+                              {{task.status}}
+                            </td>
+                          </tr>                         
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="extra content right floated ui">
+                      <div class="mini ui two buttons">
+                        <div class="ui basic green button" [routerLink]="['/posts/edit', post._id]">
+                          <i class="icon edit"></i>Edit
+                        </div>
+                        <div class="ui basic red button" (click)="onDelete(post._id)">
+                          <i class="icon trash">&nbsp; Delete</i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                </div>
+            
+            <!-- <div class="ui link cards example-card " *ngFor="let post of posts" cdkDrag>
               <div class="card task-card" *ngIf="post.groupName === 'Type1'">
                 <div class="content">
                   <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
                   <div class="card-header-actions right floated badge">
-                    <!-- <span [ngClass]="{
+                    <span [ngClass]="{
                 'badge-notstarted': post.status == 'NotStarted',
                 'badge-completed': post.status === 'Completed',
                 'badge-inprogress': post.status === 'In Progress'
-              }">1</span> -->
+              }">1</span>
                   </div>
                   <div class="header">
                      post.userName 
@@ -54,8 +118,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
+          
         </div>
         <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
           No tasks added yet!
@@ -91,15 +155,79 @@
                   <div class="header">
                     {{ post.userName }}
                   </div>
-                  <div class="meta">
-                    {{ post.title }}
+                  <table class="ui very basic collapsing celled table">
+                    <thead>
+                      <tr><th>Employee</th>
+                      <th>Correct Guesses</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            <img src="/images/avatar2/small/lena.png" class="ui mini rounded image">
+                            <div class="content">
+                              Lena
+                              <div class="sub header">Human Resources
+                            </div>
+                          </div>
+                        </h4></td>
+                        <td>
+                          22
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            <img src="/images/avatar2/small/matthew.png" class="ui mini rounded image">
+                            <div class="content">
+                              Matthew
+                              <div class="sub header">Fabric Design
+                            </div>
+                          </div>
+                        </h4></td>
+                        <td>
+                          15
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            <img src="/images/avatar2/small/lindsay.png" class="ui mini rounded image">
+                            <div class="content">
+                              Lindsay
+                              <div class="sub header">Entertainment
+                            </div>
+                          </div>
+                        </h4></td>
+                        <td>
+                          12
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            <img src="/images/avatar2/small/mark.png" class="ui mini rounded image">
+                            <div class="content">
+                              Mark
+                              <div class="sub header">Executive
+                            </div>
+                          </div>
+                        </h4></td>
+                        <td>
+                          11
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- <div class="meta">
+                    {{ post.tasks.title }}
                   </div>
                   <div class="meta">
                     {{ post.time }}
                   </div>
                   <div class="description display-flex justify-flex-end">
                     {{ post.content }}
-                  </div>
+                  </div> -->
                 </div>
                 <div class="extra content right floated ui">
                   <div class="mini ui two buttons">
@@ -138,7 +266,7 @@ showModal
     
     <div class="new-group-box">
       <i class="close icon" (click)="close()"></i>
-    <div class="header">
+    <div class="header header-post">
       {{action}} Group
     </div>
 

@@ -51,29 +51,32 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       })
     
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      console.log("hi");
       if (paramMap.has("postId")) {
+        
+        
         this.mode = "edit";
         this.postId = paramMap.get("postId");
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe((postData) => {
           this.isLoading = false;
           console.log(postData);
-          // this.post = {
-          //   id: postData._id,
-          //   title: postData.title,
-          //   content: postData.content,
-          //   time: postData.time,
-          //   status: postData.status,
-          //   groupName: postData.groupName,
-          //   creator: postData.creator,
-          // };
-          // this.form.setValue({
-          //   title: this.post.title,
-          //   content: this.post.content,
-          //   time: this.post.time,
-          //   status: this.post.status,
-          //   groupName:this.post.groupName
-          // });
+          this.post = {
+            id: postData._id,
+            title: postData.title,
+            content: postData.content,
+            time: postData.time,
+            status: postData.status,
+            groupName: postData.groupName,
+            creator: postData.creator,
+          };
+          this.form.setValue({
+            title: this.post.title,
+            content: this.post.content,
+            time: this.post.time,
+            status: this.post.status,
+            groupName:this.post.groupName
+          });
         });
       } else {
         this.mode = "create";
@@ -110,14 +113,14 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         form.value.groupName,
       );
     } else {
-      // this.postsService.updatePost(
-      //   this.postId,
-      //   form.value.title,
-      //   form.value.description,
-      //   form.value.time,
-      //   form.value.status,
-      //   form.value.groupName
-      // );
+      this.postsService.updatePost(
+        this.postId,
+        form.value.title,
+        form.value.description,
+        form.value.time,
+        form.value.status,
+        form.value.groupName
+      );
     }
     form.reset();
   }
