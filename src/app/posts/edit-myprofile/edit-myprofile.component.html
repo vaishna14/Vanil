@@ -12,7 +12,6 @@
       <mat-select
       [(value)]="groupName" 
       >
-      <mat-option value="Other" selected>Other</mat-option>
       <mat-option *ngFor="let group of groupList" value={{group.groupList}}>{{group.groupList}}</mat-option>
       </mat-select>
     </mat-card-subtitle>

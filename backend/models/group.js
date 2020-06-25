@@ -4,6 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const groupSchema = mongoose.Schema({
   groupList: { type: String, required: true, },
   userCreated: { type: String },
+  projectName:{ type:String}
 });
 
 groupSchema.plugin(uniqueValidator);

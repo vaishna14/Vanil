@@ -152,7 +152,8 @@ exports.likePost = (req, res, next) => {
 
 exports.getGroup = (req, res, next) => {
   
-  Group.find({userCreated: req.params.id}).sort([['_id', -1]]).then(post => {    
+  // Group.find({userCreated: req.params.id}).sort([['_id', -1]]).then(post => {    
+    Group.find({}).sort([['_id', -1]]).then(post => {    
     if (post) {
       res.status(200).json({post:post, message: "Group Fetched!" });
     } else {
