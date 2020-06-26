@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="row">
+      <!-- <div class="display-flex justify-space-between">
+        <h4 style="color: white;">{{group}}</h4>
+        <button style="margin-bottom: 1%;" class="ui mini icon button" (click)="deleteGroup(group)">
+          <i class="trash icon"></i>
+        </button>
+      </div> -->
+          <div *ngIf="posts.length > 0 && !isLoading" class="posts-list col-lg-4 col-md-3 col-sm-6" >
+            <div class="ui link cards example-card" *ngFor="let post of posts" cdkDrag>
+              <div class="card task-card" >
+                <div class="content">
+                  <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
+                  <!-- <div class="card-header-actions right floated badge">
+                    <span [ngClass]="{
+                              'badge-notstarted': post.status == 'NotStarted',
+                              'badge-completed': post.status === 'Completed',
+                              'badge-inprogress': post.status === 'In Progress'
+                            }">{{ post.status }}</span>
+                  </div> -->
+                  <!-- <div class="header ">
+                    {{ post.userName }}
+                  </div> -->
+                  <!-- <table class="ui very basic collapsing celled table">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr >
+                        <td>
+                          <h4 class="ui image header">
+                            <div class="content">
+                              {{post.title}}
+                            </div>
+                          </h4>
+                        </td>
+                        <td>
+                          {{post.content}}
+                        </td>
+                        <td>
+                          {{post.time}}
+                        </td>
+                        <td>
+                          {{post.status}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                  <table class="ui very basic collapsing celled table">
+                    <thead>
+                      <tr><th>About</th>
+                      <th>Value</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            
+                            <div class="content">
+                                Title
+                          </div>
+                        </h4></td>
+                        <td>
+                            {{post.title}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            
+                            <div class="content">
+                                Description
+                          </div>
+                        </h4></td>
+                        <td>
+                            {{post.content}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            
+                            <div class="content">
+                                Time
+                          </div>
+                        </h4></td>
+                        <td>
+                            {{post.time}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            
+                            <div class="content">
+                                Status
+                          </div>
+                        </h4></td>
+                        <td>
+                            {{post.status}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="extra content right floated ui">
+                  <div class="mini ui two buttons">
+                    <div class="ui basic green button" [routerLink]="['/posts/editMypost', post._id]">
+                      <i class="icon edit"></i>Edit
+                    </div>
+                    <div class="ui basic red button" (click)="onDelete(post._id)">
+                      <i class="icon trash">&nbsp; Delete</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+            No tasks added yet!
+          </p>
+     
+  
+  
+    
+  </div>

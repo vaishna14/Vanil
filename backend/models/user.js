@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   contact: { type: Number, required: true, },
   userName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
   groupName:{type:String},
   tasks:{type:Array}
 });

@@ -9,11 +9,14 @@ const router = express.Router();
 
 router.post("", checkAuth, extractFile, PostController.createPost);
 
-router.put("/:id", checkAuth, extractFile, PostController.updatePost);
+router.put("/:userId", checkAuth, extractFile, PostController.updatePost);
+router.put("/myPosts/:userId", checkAuth, extractFile, PostController.updateMyPost);
 
 router.get("",  PostController.getPosts);
+router.get("/myPosts/:id",  PostController.getMyPosts);
 
 router.get("/:id", PostController.getPost);
+router.get("/myPosts/:id/:userId", PostController.getMyPost);
 
 router.delete("/:id", checkAuth, PostController.deletePost);
 

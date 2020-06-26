@@ -15,7 +15,7 @@
   <ul>
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/posts/create" routerLinkActive="mat-accent"
-        >New Post</a
+        >New Task</a
       >
     </li>
     <li *ngIf="!userIsAuthenticated">
@@ -37,8 +37,13 @@
       >
     </li>
     <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/posts/mytask" routerLinkActive="mat-accent"
+        ><i class="fas fa-list"></i> &nbsp;My Tasks</a
+      >
+    </li>
+    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/posts/home" routerLinkActive="mat-accent"
-        ><i class="fas fa-list"></i> &nbsp;Tasks</a
+        ><i class="fas fa-clipboard"></i> &nbsp;Task Board</a
       >
     </li>
     <li *ngIf="userIsAuthenticated">

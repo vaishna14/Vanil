@@ -4,8 +4,9 @@ const Group = require('../models/group');
 
 exports.createPost = async (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
-  
-  User.findById(req.userData.userId).then(response => {    
+  console.log(req.userData.userId);
+
+  User.findById(req.userData.userId).then(response => {
     const post = new Post({
       title: req.body.title,
       content: req.body.content,
@@ -13,12 +14,12 @@ exports.createPost = async (req, res, next) => {
       status: req.body.status,
       creator: req.userData.userId,
       userName: response.userName,
-      groupName:req.body.groupName,
+      groupName: req.body.groupName,
       createdDate: new Date(),
       InprogressDate: null,
       CompletedDate: null
     });
-    User.update({_id:response.id},{$push:{tasks :post}})
+    User.update({ _id: response.id }, { $push: { tasks: post } })
       .then(createdPost => {
         res.status(201).json({
           message: "Post added successfully",
@@ -36,59 +37,130 @@ exports.createPost = async (req, res, next) => {
   })
 };
 
-exports.updatePost = (req, res, next) => {
-  let imagePath = req.body.imagePath;
-  if (req.file) {
-    const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
-  }
- 
-  User.findOne({ _id: req.body.id }).then(exist_post => {
-    
-    if (exist_post) {
-        const post = new Post({
-          _id: req.body.id,
-          lastName: req.body.lastName,
-          firstName: req.body.firstName,
-          contact: req.body.contact,
-          userName: req.body.userName,
-          email: req.body.email,
-          groupName:req.body.groupName,
-        });
-     
-        User.updateOne({ _id: req.params.id, }, post)
-          .then(result => {
-            
-            if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!" });
-            } else {
-              res.status(401).json({ message: "Not authorized!" });
-            }
-          })
-          .catch(error => {
-           
-            res.status(500).json({
-              message: "Couldn't udpate post!"
-            });
-          });
-      }
 
-    })}
+exports.updatePost = (req, res, next) => {
+  User.findOne({ _id: req.body.id }).then(exist_post => {
+    if (exist_post) {
+      const post = new User({
+        _id: req.params.userId,
+        userName: req.body.userName,
+        groupName: req.body.groupName,
+        tasks: req.body.tasks
+      });
+      User.updateOne({ _id: req.params.userId }, post)
+        .then(result => {
+          if (result.n > 0) {
+            res.status(200).json({ message: "Update successful!" });
+          } else {
+            res.status(401).json({ message: "Not authorized!" });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            message: "Couldn't udpate post!"
+          });
+        });
+    }
+
+  })
+}
+
+
+exports.updateMyPost = (req, res, next) => {
+
+
+    User.findById(req.params.userId, function (err, user) {
+      if (user){
+      var friends = user.tasks;
+      (friends.map(item => {
+        let array
+        if (item._id == req.body.id) {
+          item._id = req.body.id,
+            item.title = req.body.title,
+            item.status = req.body.status
+            item.content = req.body.description,
+            item.UpdatedDate = new Date();
+            if (req.body.status !== "NotStarted") {
+              if (req.body.status == "In Progress") {
+                item.InprogressDate = new Date()
+              } else if (req.body.status == "Completed") {
+                item.CompletedDate = new Date();
+              }  
+            }
+            else {
+                item.NotStartedDate= new Date()
+        
+            }
+          user.save().then(check => {
+            array = check
+            User.findByIdAndUpdate({ _id: req.params.userId }, check)
+              .then(result => {
+                if (result) {
+                  res.status(200).json({ message: "Update successful!" });
+                } else {
+                  res.status(401).json({ message: "Not authorized!" });
+                }
+              })
+              .catch(error => {
+                console.log(error);
+                res.status(500).json({
+                  message: "Couldn't udpate post!"
+                });
+              });
+          });
+        }
+
+      }))
+    }else{
+      res.status(500).json({
+        message: "Something went wrong!"
+      });
+    }
+
+    })
+  
+}
 
 
 exports.getPosts = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const postQuery = User.find({},{tasks:1,userName:1,groupName:1}).sort([['_id', -1]]);
+  const postQuery = User.find({}, { tasks: 1, userName: 1, groupName: 1 }).sort([['_id', -1]]);
   let fetchedPosts;
-  
+
   postQuery
-    .then(documents => {     
-      fetchedPosts = documents;    
+    .then(documents => {
+      fetchedPosts = documents;
       res.status(200).json({
         message: "Posts fetched successfully!",
         details: fetchedPosts,
-        
+
+        // maxPosts: count
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching posts failed!"
+      });
+    });
+};
+
+exports.getMyPosts = (req, res, next) => {
+  // console.log(req.userData.userId);
+
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = User.find({ _id: req.params.id }, { tasks: 1, userName: 1, groupName: 1 }).sort([['_id', -1]]);
+  let fetchedPosts;
+
+  postQuery
+    .then(documents => {
+      fetchedPosts = documents;
+      res.status(200).json({
+        message: "Posts fetched successfully!",
+        details: documents,
+
         // maxPosts: count
       });
     })
@@ -100,10 +172,10 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.getPost = (req, res, next) => {
- 
+
   User.findById(req.params.id)
     .then(post => {
-  
+
       if (post) {
         res.status(200).json(post);
       } else {
@@ -116,6 +188,34 @@ exports.getPost = (req, res, next) => {
       });
     });
 };
+
+exports.getMyPost = (req, res, next) => {
+  //  console.log(req.userData.userId);
+  let posFount;
+  User.findById(req.params.userId)
+    .then(post => {
+      (post.tasks).map(item => {
+        if (item._id == req.params.id) {
+          posFount = item
+        }
+      })
+      if (posFount) {
+        console.log(posFount);
+        res.status(200).json(posFount);
+      } else {
+        res.status(404).json({ message: "Task not found!" });
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      // console.log("error");
+
+      res.status(500).json({
+        message: "Fetching Task failed..!"
+      });
+    });
+};
+
 
 exports.deletePost = (req, res, next) => {
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
@@ -151,16 +251,16 @@ exports.likePost = (req, res, next) => {
 
 
 exports.getGroup = (req, res, next) => {
-  
+
   // Group.find({userCreated: req.params.id}).sort([['_id', -1]]).then(post => {    
-    Group.find({}).sort([['_id', -1]]).then(post => {    
+  Group.find({}).sort([['_id', -1]]).then(post => {
     if (post) {
-      res.status(200).json({post:post, message: "Group Fetched!" });
+      res.status(200).json({ post: post, message: "Group Fetched!" });
     } else {
       res.status(404).json({ message: "Group Fetched failed!" });
     }
   })
-    .catch(error => {    
+    .catch(error => {
       res.status(500).json({
         message: "Getting group failed!"
       });
@@ -170,26 +270,26 @@ exports.getGroup = (req, res, next) => {
 
 exports.addGroup = (req, res, next) => {
   const group = new Group({
-    groupList:req.body.groupName,
-    userCreated:req.body.userId
+    groupList: req.body.groupName,
+    userCreated: req.body.userId
   })
   group.save().then(createdPost => {
-    
+
     res.status(201).json({
       message: "Group created successfully",
       post: {
         ...createdPost,
         id: createdPost._id
       },
-      statusValue:true
+      statusValue: true
     });
   })
-  .catch(error => {
-    res.status(500).json({
-      message: "Creating a Group failed!",
-      statusValue:false
+    .catch(error => {
+      res.status(500).json({
+        message: "Creating a Group failed!",
+        statusValue: false
+      });
     });
-  });
 };
 exports.deleteGroup = (req, res, next) => {
   Group.deleteOne({ userCreated: req.params.userId, groupList: req.params.groupName })
@@ -205,9 +305,9 @@ exports.deleteGroup = (req, res, next) => {
         message: "Deleting posts failed!"
       });
     });
-  
-  
-  
+
+
+
 };
 
 

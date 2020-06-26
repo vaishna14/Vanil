@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 
 import { environment } from "../../environments/environment";
 import { Post } from "./post.model";
+import { MyPost } from "./myPost.model";
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
 
@@ -22,33 +23,14 @@ export class PostsService {
       .get<{ message: string; posts: any; maxPosts: number }>(
         BACKEND_URL
       )
-      // .pipe(
-      //   map((postData) => {
-      //     return {
-      //       posts: postData.posts.map((post) => {
-      //         return {
-      //           title: post.title,
-      //           content: post.content,
-      //           groupName:post.groupName,
-      //           id: post._id,
-      //           time: post.time,
-      //           creator: post.creator,
-      //           userName: post.userName,
-      //           status: post.status,
-                
-      //         };
-      //       }),
-      //       maxPosts: postData.maxPosts,
-      //     };
-      //   })
-      // )
-      // .subscribe((transformedPostData) => {
-      //   this.posts = transformedPostData.posts;
-      //   this.postsUpdated.next({
-      //     posts: [...this.posts],
-      //     postCount: transformedPostData.maxPosts,
-      //   });
-      // });
+  }
+
+  getMyPosts(userId: string) {
+    // const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+    return this.http
+      .get<{ message: string; posts: any; maxPosts: number }>(
+        BACKEND_URL + "myPosts/"+userId
+      )
   }
 
   getPostUpdateListener() {
@@ -64,6 +46,16 @@ export class PostsService {
     }>(BACKEND_URL + id);
   }
 
+  getMyPost(id: string,userId:string) {
+    return this.http.get<{
+      _id: string;
+      title: string;
+      content: string;
+      time:string;
+      status:string;
+    }>(BACKEND_URL+"myPosts/" + id+"/"+userId);
+  }
+
   addGroup(groupName:string, userId: string){
     const groupName2= {groupName:groupName,userId:userId};
     return this.http.post(BACKEND_URL + "groupName", groupName2).pipe(map((response:Response)=>response));
@@ -72,14 +64,13 @@ export class PostsService {
     return this.http.get(BACKEND_URL + "groupName/"+userId);
   }
 
-  addPost(title: string, content: string, time: string, status: string,groupName:string) {
+  addPost(title: string, content: string, time: string, status: string, userId:string) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
     postData.append("time", time);
     postData.append("status", status);
-    postData.append("groupName", groupName);
-    console.log(groupName);
+    postData.append("userId", userId);
     console.log(postData);
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
@@ -93,7 +84,6 @@ export class PostsService {
     let groupName2 = {groupName:groupName, userId:userId}
     return this.http.delete(BACKEND_URL +"groupName/"+groupName+"/"+userId)
   }
-
   updatePost(
     id: string,
     userName: string,
@@ -106,14 +96,42 @@ export class PostsService {
     postData = {
       id: id,
       userName: userName,
-      tasks: [],
+      tasks: tasks,
       // time: time,
       // creator: null,
       // status: status,
       groupName:groupName
     };
-    console.log(postData);
+
     this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
+      this.router.navigate(["/posts/home"]);
+    });
+  }
+
+
+  updateMyPost(
+    userId:string,
+    id: string,
+    title: string,
+    description: string,
+    time: string,
+    // tasks: [],
+    // time: string,
+    status: string,
+    // groupName:string
+  ) {
+    let postData: MyPost | FormData;
+    postData = {
+      id: id,
+      title: title,
+      description:description,
+      time: time,
+      // creator: null,
+      status: status,
+      // groupName:groupName
+    };
+    console.log(postData);
+    this.http.put(BACKEND_URL+"myPosts/" +userId, postData).subscribe((response) => {
       this.router.navigate(["/posts/home"]);
     });
   }

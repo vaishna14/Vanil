@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
+import { MyPost } from "../myPost.model";
 import { mimeType } from "./mime-type.validator";
 import { AuthService } from "../../auth/auth.service";
 @Component({
@@ -15,7 +16,7 @@ import { AuthService } from "../../auth/auth.service";
 export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
   enteredContent = "";
-  post: Post;
+  post: MyPost;
   isLoading = false;
   form: NgForm;
   imagePreview: string;
@@ -58,20 +59,21 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.mode = "edit";
         this.postId = paramMap.get("postId");
         this.isLoading = true;
-        this.postsService.getPost(this.postId).subscribe((postData) => {
+        this.postsService.getMyPost(this.postId, this.userId).subscribe((postData) => {
           this.isLoading = false;
-          console.log(postData);
           this.post = {
             id: postData._id,
-            userName: postData.userName,
-            tasks: postData.tasks,
-            groupName:postData.groupName
+            title: postData.title,
+            description: postData.content,
+            time:postData.time,
+            status:postData.status
           };
           this.form.setValue({
-            userName: this.post.userName,
-            tasks: this.post.tasks,
-            // time: this.post.time,
-            // status: this.post.status,
+            id: this.post.id,
+            title: this.post.title,
+            description: this.post.description,
+            time: this.post.time,
+            status: this.post.status,
             // groupName:this.post.groupName
           });
         });
@@ -107,16 +109,17 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         form.value.description,
         form.value.time,
         form.value.status,
-        form.value.groupName,
+        this.userId,
       );
     } else {
-      this.postsService.updatePost(
+      this.postsService.updateMyPost(
+        this.userId,
         this.postId,
         form.value.title,
         form.value.description,
-        // form.value.time,
-        // form.value.status,
-        form.value.groupName
+        form.value.time,
+        form.value.status,
+        // form.value.groupName
       );
     }
     form.reset();

@@ -9,9 +9,7 @@ import {
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
-import { FormGroup, NgForm, FormControl, Validators } from "@angular/forms";
-import { post } from "jquery";
-import { async } from "@angular/core/testing";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 
 @Component({
@@ -29,7 +27,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
   userName: string;
-  private postsSub: Subscription;
   private authStatusSub: Subscription;
   showShare: boolean;
   showModal: boolean;

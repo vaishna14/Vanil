@@ -12,6 +12,7 @@ const postSchema = mongoose.Schema({
   InprogressDate: { type: String },
   CompletedDate: { type: String },
   NotStartedDate:{type: String},
+  UpdatedDate:{type:String}
 });
 
 module.exports = mongoose.model("Post", postSchema);
