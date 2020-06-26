@@ -90,7 +90,8 @@ export class PostsService {
     tasks: [],
     // time: string,
     // status: string,
-    groupName:string
+    groupName:string,
+    myAvatar:string
   ) {
     let postData: Post | FormData;
     postData = {
@@ -100,7 +101,8 @@ export class PostsService {
       // time: time,
       // creator: null,
       // status: status,
-      groupName:groupName
+      groupName:groupName,
+      myAvatar:myAvatar
     };
 
     this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
@@ -136,8 +138,13 @@ export class PostsService {
     });
   }
 
-  deletePost(postId: string) {
-    return this.http.delete(BACKEND_URL + postId);
+  updateMyProfile(userId:string, profile:string){
+    let userProfile={userId:userId,profile:profile}
+    return this.http.post(BACKEND_URL+"myProfile/",userProfile);
+  }
+
+  deletePost(postId: string, userId: string) {
+    return this.http.delete(BACKEND_URL + postId +"/"+userId);
   }
 
   likePost(postId: string) {

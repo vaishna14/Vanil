@@ -13,6 +13,7 @@ const postSchema = mongoose.Schema({
   CompletedDate: { type: String },
   NotStartedDate:{type: String},
   UpdatedDate:{type:String}
+  
 });
 
 module.exports = mongoose.model("Post", postSchema);

@@ -26,9 +26,9 @@
       <!-- <div class="meta">
       <span class="date">Joined in 2013</span>
     </div> -->
-      <div class="description" contenteditable="true">
-        <i class="fas fa-pencil-alt"></i>
-        Please write some details about you here....
+      <div class="description" >
+        <!-- <i class="fas fa-pencil-alt"></i>
+        Please write some details about you here.... -->
       </div>
       <table
         [ngClass]="
@@ -74,25 +74,19 @@
               {{ email }}
             </td>
           </tr>
-          <tr>
-            <td>MyProjects</td>
-            <td>
-              {{ email }}
-            </td>
-          </tr>
-          <tr>
-            <td>Reporting Manager</td>
-            <td>
-              {{ email }}
+          <tr >
+            <td >MyGroup</td>
+            <td >
+              {{ posts.groupName }}
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="display-flex justify-flex-end">
+      <!-- <div class="display-flex justify-flex-end">
         <button mat-raised-button (click)="UpdateDetails()" color="accent">
           Update
         </button>
-      </div>
+      </div> -->
 
       <!-- <a>
     <i class="user icon"></i>

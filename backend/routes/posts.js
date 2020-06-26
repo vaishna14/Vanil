@@ -17,8 +17,9 @@ router.get("/myPosts/:id",  PostController.getMyPosts);
 
 router.get("/:id", PostController.getPost);
 router.get("/myPosts/:id/:userId", PostController.getMyPost);
+router.post("/myProfile/", PostController.updateMyProfile);
 
-router.delete("/:id", checkAuth, PostController.deletePost);
+router.delete("/:postId/:userId", checkAuth, PostController.deletePost);
 
 router.get("/like/:id", PostController.likePost);
 router.post("/groupName", PostController.addGroup);

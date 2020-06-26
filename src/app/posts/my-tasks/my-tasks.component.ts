@@ -34,6 +34,7 @@ export class MyTasksComponent implements OnInit {
   action: string;
   type1List = [];
   type2List = [];
+  lastUpdated:string;
   Lists: any;
   constructor(
     public postsService: PostsService,
@@ -58,16 +59,16 @@ export class MyTasksComponent implements OnInit {
       .subscribe((data) => {        
         this.posts = Object.values(data)[1][0].tasks;
       console.log(this.posts);
-
+      this.isLoading = false;
       });
-    this.isLoading = false;
+    
       
   }
 
 
   onDelete(postId: string) {
     this.isLoading = true;
-    this.postsService.deletePost(postId).subscribe(
+    this.postsService.deletePost(postId, this.userId).subscribe(
       () => {
         this.postsService.getPosts(this.postsPerPage, this.currentPage);
       },

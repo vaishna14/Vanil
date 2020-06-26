@@ -32,12 +32,12 @@
         matInput
         name="time"
         [ngModel]="post?.time"
-        type="text"
-        placeholder="Task time"
+        type="number"
+        placeholder="Task time (in hrs)"
         #time="ngModel"
         required
       />
-      <mat-error *ngIf="time.invalid">Please enter a valid time.</mat-error>
+      <mat-error *ngIf="time.invalid">Please enter a valid time (in hrs).</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Select an option</mat-label>

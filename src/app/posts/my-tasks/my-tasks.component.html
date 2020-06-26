@@ -18,9 +18,9 @@
                               'badge-inprogress': post.status === 'In Progress'
                             }">{{ post.status }}</span>
                   </div> -->
-                  <!-- <div class="header ">
-                    {{ post.userName }}
-                  </div> -->
+                  <div class="header ">
+                    {{ post.title }}
+                  </div>
                   <!-- <table class="ui very basic collapsing celled table">
                     <thead>
                       <tr>
@@ -57,18 +57,7 @@
                       <th>Value</th>
                     </tr></thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <h4 class="ui image header">
-                            
-                            <div class="content">
-                                Title
-                          </div>
-                        </h4></td>
-                        <td>
-                            {{post.title}}
-                        </td>
-                      </tr>
+                      
                       <tr>
                         <td>
                           <h4 class="ui image header">
@@ -103,6 +92,18 @@
                         </h4></td>
                         <td>
                             {{post.status}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="ui image header">
+                            
+                            <div class="content">
+                                Last Updated
+                          </div>
+                        </h4></td>
+                        <td>
+                            {{post.UpdatedDate}}
                         </td>
                       </tr>
                     </tbody>

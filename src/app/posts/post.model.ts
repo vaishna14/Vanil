@@ -3,4 +3,5 @@ export interface Post {
   userName: string;
   tasks: [];
   groupName:string;
+  myAvatar:string
 }

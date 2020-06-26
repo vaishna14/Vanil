@@ -21,7 +21,8 @@
           <div class="ui link cards example-card" *ngFor="let post of posts" cdkDrag>
             <div class="card task-card" *ngIf="post.groupName == group">
               <div class="content">
-                <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
+                <img class="right floated mini ui image" 
+                [src]="'../../../assets/' + post.myAvatar" />
                 <div class="card-header-actions right floated badge">
                   <span [ngClass]="{
                             'badge-notstarted': post.status == 'NotStarted',

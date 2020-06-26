@@ -15,9 +15,10 @@ exports.createPost = async (req, res, next) => {
       creator: req.userData.userId,
       userName: response.userName,
       groupName: req.body.groupName,
-      createdDate: new Date(),
+      createdDate: new Date().toISOString().split('T')[0],
       InprogressDate: null,
-      CompletedDate: null
+      CompletedDate: null,
+      UpdatedDate: new Date().toISOString().split('T')[0]
     });
     User.update({ _id: response.id }, { $push: { tasks: post } })
       .then(createdPost => {
@@ -66,12 +67,39 @@ exports.updatePost = (req, res, next) => {
   })
 }
 
+exports.updateMyProfile = (req, res, next) => {
+  console.log(req.body);
+  User.findOne({ _id: req.body.userId }).then(user => {
+    if (user) {
+      const post = new User({
+        _id: req.body.userId,
+        myAvatar: req.body.profile
+      })
+
+      User.updateOne({ _id: req.body.userId }, post)
+        .then(result => {
+          if (result.n > 0) {
+            console.log(result)
+            res.status(200).json({ message: "Update successful!" });
+          } else {
+            res.status(401).json({ message: "Not authorized!" });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            message: "Couldn't udpate post!"
+          });
+        });
+    }
+  })
+}
 
 exports.updateMyPost = (req, res, next) => {
 
 
-    User.findById(req.params.userId, function (err, user) {
-      if (user){
+  User.findById(req.params.userId, function (err, user) {
+    if (user) {
       var friends = user.tasks;
       (friends.map(item => {
         let array
@@ -79,19 +107,19 @@ exports.updateMyPost = (req, res, next) => {
           item._id = req.body.id,
             item.title = req.body.title,
             item.status = req.body.status
-            item.content = req.body.description,
-            item.UpdatedDate = new Date();
-            if (req.body.status !== "NotStarted") {
-              if (req.body.status == "In Progress") {
-                item.InprogressDate = new Date()
-              } else if (req.body.status == "Completed") {
-                item.CompletedDate = new Date();
-              }  
+          item.content = req.body.description,
+            item.UpdatedDate = new Date().toISOString().split('T')[0];
+          if (req.body.status !== "NotStarted") {
+            if (req.body.status == "In Progress") {
+              item.InprogressDate = new Date().toISOString().split('T')[0]
+            } else if (req.body.status == "Completed") {
+              item.CompletedDate = new Date().toISOString().split('T')[0];
             }
-            else {
-                item.NotStartedDate= new Date()
-        
-            }
+          }
+          else {
+            item.NotStartedDate = new Date().toISOString().split('T')[0]
+
+          }
           user.save().then(check => {
             array = check
             User.findByIdAndUpdate({ _id: req.params.userId }, check)
@@ -112,21 +140,21 @@ exports.updateMyPost = (req, res, next) => {
         }
 
       }))
-    }else{
+    } else {
       res.status(500).json({
         message: "Something went wrong!"
       });
     }
 
-    })
-  
+  })
+
 }
 
 
 exports.getPosts = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const postQuery = User.find({}, { tasks: 1, userName: 1, groupName: 1 }).sort([['_id', -1]]);
+  const postQuery = User.find({}, { tasks: 1, userName: 1, groupName: 1, myAvatar: 1 }).sort([['_id', -1]]);
   let fetchedPosts;
 
   postQuery
@@ -218,19 +246,37 @@ exports.getMyPost = (req, res, next) => {
 
 
 exports.deletePost = (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
-    .then(result => {
-      if (result.n > 0) {
-        res.status(200).json({ message: "Deletion successful!" });
-      } else {
-        res.status(401).json({ message: "Not authorized!" });
-      }
+  // User.find({ _id: req.params.id, creator: req.userData.userId })
+  //   .then(result => {
+  //     if (result.n > 0) {
+  //       res.status(200).json({ message: "Deletion successful!" });
+  //     } else {
+  //       res.status(401).json({ message: "Not authorized!" });
+  //     }
+  //   })
+  //   .catch(error => {
+  //     res.status(500).json({
+  //       message: "Deleting posts failed!"
+  //     });
+  //   });
+  console.log(req.params.userId )
+  console.log(req.params.postId )
+  User.updateOne({_id:req.params.userId },
+    { $pull: { "tasks":{$elemMatch:{"_id": req.params.postId} }} }, function(err, data){
+      console.log(err, data);
     })
-    .catch(error => {
-      res.status(500).json({
-        message: "Deleting posts failed!"
-      });
-    });
+  //   ,{multi: true} , 
+  //   (err) => {
+  //     if (err) {
+  //       console.log(err);
+        
+  //       return res.status(401).json({ message: "Could Not Delete!" });
+  //     }
+  // console.log("hi")
+
+  //     return res.status(200).json({ message: "Update successful!" });
+    // }
+  // );
 };
 
 exports.likePost = (req, res, next) => {

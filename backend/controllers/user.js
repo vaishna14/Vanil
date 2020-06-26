@@ -40,7 +40,8 @@ exports.createUser = (req, res, next) => {
           email: req.body.email,
           password: hash,
           tasks:[],
-          groupName:"Other"
+          groupName:"Other",
+          myAvatar:"myprofile.png"
         });
         user
           .save()

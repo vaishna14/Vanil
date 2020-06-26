@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, OnChanges } from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "../../auth/auth.service";
+import {PostsService} from "../posts.service";
+import {Post} from "../post.model"
 import * as $ from "jquery";
 @Component({
   selector: "app-my-profile",
@@ -24,8 +26,10 @@ export class MyProfileComponent implements OnInit {
   profileName: string;
   avatarlist: any;
   myProfile: string;
+  posts: Post[] = [];
+  groupList = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private postsService:PostsService) {}
 
   ngOnInit() {
     this.avatarlist = [
@@ -61,12 +65,36 @@ export class MyProfileComponent implements OnInit {
         this.contact = this.authService.getContact();
         this.userId = this.authService.getUserId();
       });
-    this.myProfile == "myprofile.png";
+      this.postsService
+      .getPosts(2, 2)
+      .subscribe((data) => {   
+        let postList=[]     
+        postList = Object.values(data)[1];
+        postList.map(item=>{
+          console.log(item)
+          if (item._id === this.userId){
+            this.posts=item;
+            this.myProfile =item.myAvatar;
+            console.log(item.myAvatar);
+          }
+        })
+      });
+    this.postsService.getGroup(this.userId).subscribe((data) => {
+      Object.values(data)[0].map((item) => {
+        this.groupList.push(item.groupList);
+      });
+    });
+    
+    
   }
 
   ChangeAvatar(name) {
     this.myProfile = name;
     this.showModal = false;
+    console.log(name)
+    this.postsService.updateMyProfile(this.userId,name).subscribe(response=>{
+      console.log(response)
+    })
   }
   openModal() {
     this.showModal = true;
@@ -81,8 +109,6 @@ export class MyProfileComponent implements OnInit {
     this.click = false;
     this.editField = property;
     if (this.editField == "firstName") {
-      console.log(this.editField);
-      console.log(event);
       this.firstName = event.target.innerText;
     } else if (this.editField == "lastName") {
       this.lastName = event.target.innerText;
@@ -94,7 +120,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   UpdateDetails() {
-    console.log(this.firstName);
     this.authService.createUser(
       this.firstName,
       this.lastName,

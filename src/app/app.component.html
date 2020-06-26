@@ -31,11 +31,11 @@
     <!-- <li *ngIf="userIsAuthenticated">
       <button class="logout" mat-button (click)="onLogout()">Logout</button>
     </li> -->
-    <li *ngIf="userIsAuthenticated">
+    <!-- <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
         ><i class="fas fa-bell"></i>&nbsp; Notifications</a
       >
-    </li>
+    </li> -->
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/posts/mytask" routerLinkActive="mat-accent"
         ><i class="fas fa-list"></i> &nbsp;My Tasks</a
@@ -51,7 +51,8 @@
         class="userName"
         mat-raised-button="accent"
         (click)="opened = !opened"
-      >
+        routerLink="/posts/myProfile" routerLinkActive="mat-accent"
+      ><i class="fa fa-user" aria-hidden="true"></i> &nbsp;
         {{ userName }}
       </button>
     </li>

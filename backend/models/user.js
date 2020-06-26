@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String },
   groupName:{type:String},
-  tasks:{type:Array}
+  tasks:{type:Array},
+  myAvatar:{type:String}
 });
 
 userSchema.plugin(uniqueValidator);
