@@ -5,6 +5,7 @@
         <div class="col-md-10 col-lg-10 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
+              <!-- <mat-card class="col-12 signup-card margin-auto"> -->
               <mat-spinner *ngIf="isLoading"></mat-spinner>
               <form
                 (submit)="onSignup(signupForm)"
@@ -129,6 +130,7 @@
                   </button>
                 </div>
               </form>
+              <!-- </mat-card> -->
             </div>
           </div>
         </div>

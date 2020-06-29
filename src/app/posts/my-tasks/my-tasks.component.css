@@ -108,6 +108,7 @@
   
   .ui.cards {
     margin: auto;
+    margin-top: unset !important;
   }
   
   .badge-notstarted {
@@ -271,5 +272,7 @@
   }
 
   .ui.collapsing.table{
-    min-width: 220px;
+    /* min-width: 220px; */
+    table-layout: fixed;
+    width: 100%;
   }

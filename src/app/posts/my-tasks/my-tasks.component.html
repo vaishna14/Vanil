@@ -1,8 +1,11 @@
-<div class="container">
-    <div class="row">
-          <div *ngIf="posts.length > 0 && !isLoading" class="posts-list col-lg-4 col-md-3 col-sm-6" >
-            <div class="ui link cards example-card" *ngFor="let post of posts" cdkDrag>
-              <div class="card task-card" >
+
+          
+            <div class="container">
+              <div *ngIf="posts.length > 0 && !isLoading" class="posts-list " >
+              <div class="row">
+            <div class="ui link cards example-card col-lg-3 col-md-3 col-sm-6" *ngFor="let post of posts" cdkDrag >
+              
+              <div class="card task-card " >
                 <div class="content">
                   <img class="right floated mini ui image" src="../../../assets/elliot.jpg" />
                   <!-- <div class="card-header-actions right floated badge">
@@ -15,6 +18,7 @@
                   <div class="header ">
                     {{ post.title }}
                   </div>
+                  
                   <table class="ui very basic collapsing celled table">
                     <thead>
                       <tr><th>About</th>
@@ -78,7 +82,7 @@
                     <div class="ui basic green button" [routerLink]="['/posts/editMypost', post._id]">
                       <i class="icon edit"></i>Edit
                     </div>
-                    <div class="ui basic red button" (click)="onDelete(post.title)">
+                    <div class="ui basic red button" (click)="onDelete(post._id)">
                       <i class="icon trash">&nbsp; Delete</i>
                     </div>
                   </div>
