@@ -262,8 +262,8 @@ exports.deletePost = (req, res, next) => {
   console.log(req.params.userId )
   console.log(req.params.postId )
   User.updateOne({_id:req.params.userId },
-    { $pull: { "tasks":{$elemMatch:{"_id": req.params.postId} }} }, function(err, data){
-      console.log(err, data);
+    { $pull: { 'tasks':{"_id": req.params.postId} } }, function(err, data){
+      console.log(err);
     })
   //   ,{multi: true} , 
   //   (err) => {
