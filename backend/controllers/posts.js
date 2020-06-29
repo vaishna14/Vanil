@@ -175,7 +175,6 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.getMyPosts = (req, res, next) => {
-  // console.log(req.userData.userId);
 
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
@@ -218,7 +217,6 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.getMyPost = (req, res, next) => {
-  //  console.log(req.userData.userId);
   let posFount;
   User.findById(req.params.userId)
     .then(post => {
@@ -235,9 +233,6 @@ exports.getMyPost = (req, res, next) => {
       }
     })
     .catch(error => {
-      console.log(error);
-      // console.log("error");
-
       res.status(500).json({
         message: "Fetching Task failed..!"
       });
@@ -246,37 +241,20 @@ exports.getMyPost = (req, res, next) => {
 
 
 exports.deletePost = (req, res, next) => {
-  // User.find({ _id: req.params.id, creator: req.userData.userId })
-  //   .then(result => {
-  //     if (result.n > 0) {
-  //       res.status(200).json({ message: "Deletion successful!" });
-  //     } else {
-  //       res.status(401).json({ message: "Not authorized!" });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     res.status(500).json({
-  //       message: "Deleting posts failed!"
-  //     });
-  //   });
-  console.log(req.params.userId )
-  console.log(req.params.postId )
-  User.updateOne({_id:req.params.userId },
-    { $pull: { 'tasks':{"_id": req.params.postId} } }, function(err, data){
-      console.log(err);
-    })
-  //   ,{multi: true} , 
-  //   (err) => {
-  //     if (err) {
-  //       console.log(err);
-        
-  //       return res.status(401).json({ message: "Could Not Delete!" });
-  //     }
-  // console.log("hi")
 
-  //     return res.status(200).json({ message: "Update successful!" });
-    // }
-  // );
+  User.update(
+    { '_id': req.params.userId },
+    { $pull: { "tasks": { "title": req.params.postId } } }, { multi: true },
+    (err) => {
+      if (err) {
+        console.log(err);
+
+        return res.status(401).json({ message: "Could Not Delete!" });
+      }
+
+      return res.status(200).json({ message: "Update successful!" });
+    }
+  )
 };
 
 exports.likePost = (req, res, next) => {

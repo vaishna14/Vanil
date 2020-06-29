@@ -1,5 +1,4 @@
 <mat-toolbar class="header-navigation">
-  <!-- <img class="logo-img" src="../../assets/logoOrg.PNG" alt="logo" /> -->
   <span>
     <a class="logo-name" mat-button routerLink="/">Web App</a>
   </span>
@@ -28,14 +27,6 @@
         >Signup</a
       >
     </li>
-    <!-- <li *ngIf="userIsAuthenticated">
-      <button class="logout" mat-button (click)="onLogout()">Logout</button>
-    </li> -->
-    <!-- <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
-        ><i class="fas fa-bell"></i>&nbsp; Notifications</a
-      >
-    </li> -->
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/posts/mytask" routerLinkActive="mat-accent"
         ><i class="fas fa-list"></i> &nbsp;My Tasks</a
@@ -72,4 +63,3 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<!-- <app-error *ngIf="hasError"></app-error> -->
