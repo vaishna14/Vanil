@@ -100,6 +100,7 @@ export class TeamDetailsComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.teamService.getpieCharts().subscribe((result) => {
+      console.log(result)
       this.maps = result;
       this.pieChartData = [
         this.maps.InProgress,
@@ -108,7 +109,7 @@ export class TeamDetailsComponent implements OnInit {
       ];
     });
     this.teamService.getteamsTable().subscribe((result) => {
-      console.log(result);
+      // console.log(result);
     });
 
     this.userId = this.authService.getUserId();
@@ -165,7 +166,7 @@ export class TeamDetailsComponent implements OnInit {
     event: MouseEvent;
     active: {}[];
   }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({
@@ -175,7 +176,7 @@ export class TeamDetailsComponent implements OnInit {
     event: MouseEvent;
     active: {}[];
   }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public randomize(): void {

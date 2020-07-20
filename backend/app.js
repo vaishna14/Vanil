@@ -44,6 +44,6 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/teams", teamsRoutes);
+app.use("/api/teams/", teamsRoutes);
 
 module.exports = app;

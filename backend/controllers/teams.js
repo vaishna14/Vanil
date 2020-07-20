@@ -4,13 +4,20 @@ const User = require("../models/user")
 
 
 exports.getPieCharts = (req, res, next) => {
+    console.log("here")
     let fetchedPosts;
     let Completed = 0;
     let InProgress = 0;
     let NotStarted = 0;
-    Post.find({}, { status: 1 })
+    User.find({}, { tasks: 1 })
         .then(documents => {
-            fetchedPosts = documents;
+            let totalTaks = [];
+            documents.map(item =>{
+            
+               
+            })
+            
+            fetchedPosts = documents[0];
             documents.map(item => {
                 if (item.status === "Completed") {
                     Completed += 1;
