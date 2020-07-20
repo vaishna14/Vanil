@@ -241,7 +241,7 @@ exports.getMyPost = (req, res, next) => {
 
 
 exports.deletePost = (req, res, next) => {
-
+  console.log(req.params.postId)
   User.update(
     { '_id': req.params.userId },
     { $pull: { "tasks": { "title": req.params.postId } } }, { multi: true },

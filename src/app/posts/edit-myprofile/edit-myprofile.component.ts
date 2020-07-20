@@ -26,6 +26,7 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
   groupName:string;
   Name:string;
   id:string;
+  myAvatar:string;
 
   constructor(
     public route: ActivatedRoute,
@@ -68,7 +69,7 @@ export class EditMyprofileComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
   UpdateDetails(){
-    this.postsService.updatePost(this.id, this.Name,this.tasks,this.groupName)
+    this.postsService.updatePost(this.id, this.Name,this.tasks,this.groupName, this.myAvatar)
   }
   ngOnChanges() {
     this.userName = this.authService.getUserName();

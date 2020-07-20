@@ -97,6 +97,7 @@
   
   .card.task-card {
     width: 100%;
+    min-width: 350px;
   }
   .ui.cards ~ .ui.cards {
     margin: auto;

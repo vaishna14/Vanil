@@ -36,6 +36,7 @@ export class MyTasksComponent implements OnInit {
   type2List = [];
   lastUpdated:string;
   Lists: any;
+  myProfile:any;
   constructor(
     public postsService: PostsService,
     private authService: AuthService,
@@ -54,6 +55,18 @@ export class MyTasksComponent implements OnInit {
         this.userId = this.authService.getUserId();
         this.userName = this.authService.getUserName();
       });
+      this.postsService.getPosts(2,2).subscribe((data) => {   
+        let postList=[]     
+        postList = Object.values(data)[1];
+        postList.map(item=>{
+          // console.log(item)
+          if (item._id === this.userId){
+            this.posts=item;
+            this.myProfile =item.myAvatar;
+            console.log(this.myProfile);
+          }
+        })
+      });
       this.postsService
       .getMyPosts(this.userId)
       .subscribe((data) => {        
@@ -61,6 +74,7 @@ export class MyTasksComponent implements OnInit {
       console.log(this.posts);
       this.isLoading = false;
       });
+      
     
       
   }
