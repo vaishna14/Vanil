@@ -29,7 +29,7 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.1.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "jquery": "^3.5.1",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.2",
